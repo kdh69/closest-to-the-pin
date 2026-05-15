@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Closest to the Pin — Spin the Globe, Tap the Course</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -159,7 +160,7 @@
     padding: 14px 22px 14px 14px;
     border-radius: 16px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 14px;
     min-width: 340px;
     max-width: calc(100vw - 32px);
@@ -240,6 +241,15 @@
     font-size: 0.78rem;
     color: var(--text-dim);
     margin-top: 2px;
+  }
+  .prompt-trivia {
+    font-size: 0.82rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
   }
 
   /* === REVEAL CARD === */
@@ -475,12 +485,6 @@
     stroke-width: 0.4;
     pointer-events: none;
   }
-  .state-border {
-    fill: none;
-    stroke: rgba(255,255,255,0.18);
-    stroke-width: 0.5;
-    pointer-events: none;
-  }
   .sphere {
     fill: var(--ocean);
     stroke: rgba(255,255,255,0.12);
@@ -589,6 +593,151 @@
     .splash h1 { font-size: 1.6rem; }
     .total { font-size: 2.6rem; }
   }
+
+  /* === HOME SCREEN === */
+  .hidden-view { display: none !important; }
+
+  .home-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Daily banner */
+  .daily-banner {
+    margin: 14px 16px 0;
+    background: var(--panel);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .daily-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--gold-soft);
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .daily-info { flex: 1; min-width: 0; }
+  .daily-date { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; line-height: 1.2; }
+  .daily-sub { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
+  .daily-played { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+  .daily-played b { color: var(--gold); font-weight: 700; }
+  .daily-streak { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    margin: 14px 16px 0;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
+    letter-spacing: -0.01em;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* Tab panes */
+  .tab-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .tab-content.hidden { display: none; }
+
+  /* Level grid */
+  .level-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    padding: 18px 16px 24px;
+  }
+  .level-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .level-circle {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    gap: 2px;
+  }
+  .level-circle:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  .level-circle:active { transform: scale(0.95); }
+  .level-circle.completed {
+    background: var(--good);
+    border-color: var(--good);
+    color: var(--bg-0);
+  }
+  .level-num { font-weight: 800; font-size: 1.05rem; line-height: 1; }
+  .level-stars { font-size: 0.58rem; line-height: 1; }
+  .level-best { font-size: 0.65rem; color: var(--text-dim); text-align: center; min-height: 1em; }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+  .stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-card.wide { grid-column: 1 / -1; }
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  @media (max-width: 640px) {
+    .daily-banner { margin: 10px 12px 0; padding: 12px 14px; }
+    .tab-bar { margin: 10px 12px 0; }
+    .level-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 12px 12px 20px; }
+    .level-circle { width: 60px; height: 60px; }
+    .stats-grid { padding: 12px; gap: 10px; }
+  }
 </style>
 </head>
 <body>
@@ -598,16 +747,34 @@
       <div class="brand-mark">⛳</div>
       <div class="brand-text">Closest to the Pin</div>
     </div>
-    <div class="dots-wrap">
+    <div class="dots-wrap" id="dots-wrap">
       <div class="dots" id="dots"></div>
     </div>
-    <div class="score-block">
+    <div class="score-block" id="score-block">
       <div class="score-label">Score</div>
       <div class="score-value" id="score-value">0</div>
     </div>
+    <div id="home-nav" style="display:none">
+      <button class="btn ghost" id="btn-practice" style="padding:7px 16px;font-size:0.82rem">Practice ▶</button>
+    </div>
   </div>
 
-  <div class="globe-wrap" id="globe-wrap">
+  <div id="home-screen" class="home-screen">
+    <div class="daily-banner" id="daily-banner">
+      <div class="daily-icon">📅</div>
+      <div class="daily-info"><div class="daily-date">Loading…</div></div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="levels">Levels</button>
+      <button class="tab-btn" data-tab="stats">Stats</button>
+    </div>
+    <div class="tab-content" id="tab-levels">
+      <div class="level-grid" id="level-grid"></div>
+    </div>
+    <div class="tab-content hidden" id="tab-stats"></div>
+  </div>
+
+  <div class="globe-wrap hidden-view" id="globe-wrap" style="display:none">
     <svg id="globe"></svg>
 
     <div class="legend" id="legend">Drag to spin · scroll to zoom · tap to guess</div>
@@ -622,6 +789,7 @@
         </div>
         <div class="target-name" id="target-name">—</div>
         <div class="prompt-hint" id="prompt-hint">Tap where you think it is</div>
+        <div class="prompt-trivia" id="prompt-trivia"></div>
       </div>
     </div>
 
@@ -633,10 +801,9 @@
         </div>
         <div class="reveal-score">
           <div class="reveal-points" id="reveal-points">0</div>
-          <div class="reveal-distance" id="reveal-distance">— km away</div>
+          <div class="reveal-distance" id="reveal-distance">— mi away</div>
         </div>
       </div>
-      <div class="reveal-trivia" id="reveal-trivia">—</div>
       <div class="reveal-actions">
         <button class="btn" id="reveal-next">Next →</button>
       </div>
@@ -652,24 +819,13 @@
           <div class="pb-line" id="summary-pb">Personal best: <b>0</b></div>
         </div>
         <ul class="sum-list" id="summary-list"></ul>
-        <div class="summary-actions">
+        <div class="summary-actions" id="summary-actions">
           <button class="btn ghost" id="summary-share">Copy Result</button>
           <button class="btn" id="summary-replay">Play Again</button>
         </div>
       </div>
     </div>
 
-    <div class="splash" id="splash">
-      <div class="splash-inner">
-        <div class="splash-logo">⛳</div>
-        <h1>Closest to the Pin</h1>
-        <p>Find <strong>famous courses</strong>, <strong>championship venues</strong>, <strong>player birthplaces</strong>, <strong>golf landmarks</strong>, and <strong>architect origins</strong> hidden on a spinning globe.</p>
-        <p style="font-size:0.85rem;">Five rounds — two easy (1×), one medium (2×), two hard (3×). Up to <b>1,000 points</b>.<b>1,000 points</b>.</p>
-        <p style="font-size:0.78rem; color: var(--text-dim);">Drag to rotate · scroll/pinch to zoom · tap to drop your pin.</p>
-        <button class="btn" id="splash-start">Tee Off</button>
-        <div class="splash-pb" id="splash-pb"></div>
-      </div>
-    </div>
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
@@ -679,216 +835,256 @@ const WORLD_TOPO ={"type":"Topology","objects":{"countries":{"type":"GeometryCol
 ;
 
 // =============================================================
-// LOCATIONS — 67 entries bundled inline, fully self-contained
+// LOCATIONS — 119 entries bundled inline, fully self-contained
 // =============================================================
 const LOCATIONS = [
   // --- FAMOUS COURSES ---
   { name: "St Andrews (Old Course)", category: "course", country: "Scotland", lat: 56.343, lon: -2.803,
-    trivia: "The 'Home of Golf' — rounds have been played here since the 1400s. The 17th 'Road Hole' is one of golf's most fearsome par-4s." },
+    trivia: "Until 1764, this course had 22 holes. The R&A shortened it to 18 that year — and every course built since has copied that number." },
   { name: "Augusta National", category: "course", country: "USA · Georgia", lat: 33.502, lon: -82.022,
-    trivia: "Home of The Masters since 1934, co-designed by Bobby Jones and Alister MacKenzie on the grounds of a former indigo plantation and tree nursery." },
+    trivia: "The pimento cheese sandwiches here cost $1.50 and haven't changed price in decades. The recipe has never been publicly released." },
   { name: "Pebble Beach", category: "course", country: "USA · California", lat: 36.567, lon: -121.949,
-    trivia: "The 7th hole plays just 100 yards straight over the Pacific cliffs. Tiger's 15-shot win at the 2000 US Open remains the major's biggest margin." },
+    trivia: "Tiger's 15-shot win here at the 2000 US Open is the largest margin of victory in major championship history. The runner-up finished at 3-over par." },
   { name: "Pine Valley", category: "course", country: "USA · New Jersey", lat: 39.787, lon: -74.970,
-    trivia: "Often ranked #1 in the world. There's almost no fairway grass between holes — just sandy waste areas and dense pine forest." },
+    trivia: "There's no rough at Pine Valley — you're either on the fairway, on the green, or in a sandy wasteland. The punishment for missing is immediate and total." },
   { name: "Royal County Down", category: "course", country: "Northern Ireland", lat: 54.219, lon: -5.875,
-    trivia: "Tom Watson called the 9th the most beautiful par-4 in golf. The course sits against the Mountains of Mourne sweeping down to the sea." },
+    trivia: "Most greens here are invisible from the tees — the fairways roll blind over gorse-covered ridges. The entire course was shaped without planting a single tree; everything grew there naturally." },
   { name: "Royal Melbourne (Composite)", category: "course", country: "Australia", lat: -37.971, lon: 145.035,
-    trivia: "The crown of Australia's sandbelt, designed by Alister MacKenzie. Hosted the Presidents Cup three times." },
+    trivia: "The 'Composite' course is assembled from two layouts — 12 holes from the West Course and 6 from the East — and exists only for elite events. No one plays it this way during a normal round." },
   { name: "Cypress Point", category: "course", country: "USA · California", lat: 36.584, lon: -121.972,
-    trivia: "The par-3 16th plays 231 yards over the Pacific. So exclusive there are fewer than 250 members — including no famous professionals." },
+    trivia: "The 16th plays 231 yards to a green perched on a rocky outcrop. Jack Nicklaus called it the greatest par-3 in the world. On a full-wind day, the carry is effectively impossible for most golfers." },
   { name: "Muirfield", category: "course", country: "Scotland", lat: 56.043, lon: -2.823,
-    trivia: "Founded in 1744, making it the world's oldest organized golf club. Has hosted The Open Championship 16 times." },
+    trivia: "Nick Faldo's winning final round here in 1987 consisted of 18 straight pars — no birdies, no bogeys. It was enough to win The Open Championship. He later said it was the best round of his life." },
   { name: "Royal Portrush (Dunluce Links)", category: "course", country: "Northern Ireland", lat: 55.201, lon: -6.659,
-    trivia: "The only Open Championship venue outside Great Britain. Held the Open in 1951, returned in 2019, and hosts it again in 2025." },
+    trivia: "When The Open returned here in 2019 after 68 years away, Rory McIlroy — the local favourite — made an 8 on the opening hole in front of a sold-out home crowd and missed the cut." },
   { name: "Carnoustie", category: "course", country: "Scotland", lat: 56.499, lon: -2.713,
-    trivia: "Nicknamed 'Car-nasty.' Jean van de Velde's 1999 meltdown on the 18th — leading by 3 with one to play — is one of golf's most famous collapses." },
+    trivia: "Ben Hogan played his only Open Championship here in 1953. He arrived two weeks early to learn the course, won by 4 shots, and never returned to defend." },
   { name: "Oakmont", category: "course", country: "USA · Pennsylvania", lat: 40.521, lon: -79.832,
-    trivia: "Famed for the fastest greens in major championship golf and over 200 deep bunkers, including the legendary 'Church Pews'." },
+    trivia: "The greens here are rolled twice daily during tournaments and have measured 15 on the Stimpmeter — roughly twice the speed of a typical public course. It's the only venue to have hosted eight US Opens." },
   { name: "Shinnecock Hills", category: "course", country: "USA · New York", lat: 40.892, lon: -72.449,
-    trivia: "One of five founding clubs of the USGA in 1894. Set on the eastern tip of Long Island where Atlantic winds dictate every shot." },
+    trivia: "Willie Dunn was hired in 1891 to design the original 12-hole course using 150 Native American labourers from the local Shinnecock tribe — making it the only US Open venue named after the people who built it." },
   { name: "Whistling Straits (Straits)", category: "course", country: "USA · Wisconsin", lat: 43.852, lon: -87.722,
-    trivia: "Pete Dye's links carved along two miles of Lake Michigan shoreline. Site of the 2021 Ryder Cup rout (USA 19–9)." },
+    trivia: "Dustin Johnson led the 2010 PGA Championship here by one shot on the 72nd hole — then grounded his club in what he thought was a hardpan path. A rules official ruled it a bunker. The two-shot penalty cost him the title." },
   { name: "TPC Sawgrass (Stadium)", category: "course", country: "USA · Florida", lat: 30.198, lon: -81.394,
-    trivia: "Home of The Players Championship. The island-green 17th has swallowed more than 120,000 balls since 1982." },
+    trivia: "The island-green 17th was a last-minute idea. Pete Dye had already designed a conventional par-3, but his wife Alice walked over and said 'Why don't you just make it an island?' He did." },
   { name: "Bandon Dunes Resort", category: "course", country: "USA · Oregon", lat: 43.181, lon: -124.401,
-    trivia: "Five public links courses on a wild Pacific clifftop, all walking-only with caddies. Founded by Mike Keiser in 1999." },
+    trivia: "There are no TVs anywhere on the property — not in the rooms, not in the bar, not in the clubhouse. The owner banned them deliberately. You're there to play golf and nothing else." },
   { name: "Royal Birkdale", category: "course", country: "England", lat: 53.625, lon: -3.038,
-    trivia: "On the Open Championship rota since 1954. Jordan Spieth's improvised driving-range drop on 13 helped him win the 2017 Open." },
+    trivia: "Jordan Spieth's 2017 Open recovery: he hit into a hospitality area, declared unplayable, then dropped near the driving range for a clear shot at the green. Technically legal. He birdied the hole and won." },
   { name: "Valderrama", category: "course", country: "Spain", lat: 36.298, lon: -5.323,
-    trivia: "Hosted Europe's first mainland Ryder Cup in 1997 under captain Seve Ballesteros. Built among cork oaks in Andalusia." },
+    trivia: "Seve Ballesteros as Ryder Cup captain in 1997 instructed his players to lay up short of the 17th green every time. Tiger went over the water anyway. It's been called the most debated tactical hole in Ryder Cup history." },
   { name: "Le Golf National (Albatros)", category: "course", country: "France", lat: 48.752, lon: 2.072,
-    trivia: "Hosted Europe's dominant 2018 Ryder Cup win outside Paris. Water threatens nine of the back-nine holes." },
+    trivia: "At the 2018 Ryder Cup here, Europe won 17½–10½ — the worst US defeat in 25 years. Several American players said afterward they couldn't hear themselves think over the crowd noise." },
   { name: "Hirono", category: "course", country: "Japan", lat: 34.770, lon: 134.965,
-    trivia: "Japan's most acclaimed course, designed by Charles Alison in 1932 and recently restored to recapture its 1930s grandeur." },
+    trivia: "The deep-lipped bunkers here were designed by British architect Charles Alison in 1932. His style became so influential that golfers across the country still call sharply-faced bunkers 'Alisons.'" },
   { name: "Cape Kidnappers", category: "course", country: "New Zealand", lat: -39.659, lon: 177.087,
-    trivia: "Tom Doak's design plays along 140-metre clifftops above Hawke's Bay. The 6th and 15th run right to the cliff edge." },
+    trivia: "The course runs along a working sheep station. During the off-season, sheep graze across the same fairways. Nothing prevents them from wandering onto the greens." },
   { name: "Banff Springs", category: "course", country: "Canada · Alberta", lat: 51.166, lon: -115.557,
-    trivia: "Carved through the Canadian Rockies in 1928 by Stanley Thompson. The par-3 4th 'Devil's Cauldron' plays from a mountain ledge." },
+    trivia: "Stanley Thompson charged $1 million Canadian to design this course in 1927 — a fee so outrageous the park superintendent called it highway robbery. Thompson replied that you can't put a price on a view like this." },
   { name: "Mission Hills (Shenzhen)", category: "course", country: "China", lat: 22.659, lon: 114.073,
-    trivia: "The world's largest golf complex with 12 courses designed by Jack Nicklaus, Annika Sörenstam, Vijay Singh, and others." },
+    trivia: "The resort's 12 courses cover more ground than the entire city of Monaco. It has its own hotels, spa, waterpark, and convention centre — all themed around golf." },
   { name: "Royal Dornoch", category: "course", country: "Scotland · Highlands", lat: 57.876, lon: -4.029,
-    trivia: "Tom Watson called it 'the most natural golf course in the world.' Donald Ross learned to play here before exporting Scottish links design to America." },
+    trivia: "Donald Ross grew up caddying and playing here before emigrating to America, where he designed over 400 courses. Golfers visiting for the first time often say it feels oddly familiar — because Ross exported what he learned here across a continent." },
   { name: "Old Head of Kinsale", category: "course", country: "Ireland · County Cork", lat: 51.609, lon: -8.535,
-    trivia: "Built on a 220-acre promontory jutting two miles into the Atlantic. Nine of 18 holes play along sheer 300-foot clifftops." },
+    trivia: "A lighthouse has stood on this headland since the 1600s. When developers bought the land in 1989, locals opposed the course for years. The lighthouse still stands — now it sits alongside the 13th hole." },
   { name: "Tara Iti", category: "course", country: "New Zealand · Northland", lat: -36.149, lon: 174.673,
-    trivia: "Tom Doak's private dune course north of Auckland — usually ranked the world's #1 modern course. Members fly in to a private airstrip." },
+    trivia: "There are fewer than 200 members worldwide, and most never play here — they funded the course's construction. Joining requires a personal invitation from an existing member." },
   { name: "Coober Pedy Opal Fields", category: "course", country: "Australia · South Australia", lat: -29.013, lon: 134.755,
-    trivia: "Played in the outback desert with zero grass — fairways are red dirt, 'greens' are oiled sand, and players carry a small turf mat to tee from anywhere." },
+    trivia: "The course is often played at night because daytime temperatures regularly hit 45°C. Players use glow-in-the-dark balls. The club keeps a supply in a bucket by the first hole." },
   { name: "Merion Golf Club (East)", category: "course", country: "USA · Pennsylvania", lat: 40.019, lon: -75.298,
-    trivia: "Famous for wicker basket flagsticks. Site of Ben Hogan's iconic 1-iron on the 72nd hole to win the 1950 US Open after his near-fatal car crash." },
-  { name: "Seminole Golf Club", category: "course", country: "USA · Florida", lat: 26.818, lon: -80.060,
-    trivia: "Ben Hogan's winter practice retreat in Palm Beach. Designed by Donald Ross; ultra-private and rarely seen in competition." },
+    trivia: "The wicker basket flagsticks were adopted in 1896 because the course bordered open farmland and cattle kept eating the flags. The cows are long gone, but the baskets stayed." },
+  { name: "Seminole Golf Club", category: "course", country: "USA · Florida", lat: 26.8783, lon: -80.0578,
+    trivia: "Almost no photographs of this course exist. For decades the only way most golfers knew what it looked like was through written descriptions. The club has never allowed a professional event or a documentary crew." },
   { name: "Royal St George's", category: "course", country: "England · Kent", lat: 51.280, lon: 1.375,
-    trivia: "England's only current Open Championship venue, known for giant grass mounds between fairways. Darren Clarke won The Open here in 2011." },
+    trivia: "The 4th hole has a hidden hollow called 'the Maiden' — a well-struck drive funnels into a perfect lie, but you can't see where it's going from the tee. Tom Watson said it was one of the most disorienting holes he'd ever played." },
   { name: "Lahinch Golf Club", category: "course", country: "Ireland · County Clare", lat: 52.933, lon: -9.341,
-    trivia: "Known as the 'St Andrews of Ireland.' The resident goats famously predicted storms — they'd shelter at the clubhouse before bad weather arrived." },
+    trivia: "The club's goat herd served as its official weather station for decades — when the goats moved to the clubhouse, rain was coming. The club tracked their predictions and found them more reliable than the official forecast." },
   { name: "Wentworth Club (West)", category: "course", country: "England · Surrey", lat: 51.415, lon: -0.567,
-    trivia: "The 'Burma Road' course designed by H.S. Colt. Home of the BMW PGA Championship, Europe's richest strokeplay event." },
+    trivia: "The European PGA Championship has been held here since 1984. The 18th is one of the most photographed finishing holes in European golf — a long par-5 with a green guarded on three sides by water." },
   { name: "Kapalua (Plantation Course)", category: "course", country: "USA · Hawaii", lat: 20.985, lon: -156.687,
-    trivia: "Opens the PGA Tour season each January on the slopes of Maui's West Maui Mountains. Ernie Els shot 31-under in the 2003 Mercedes." },
+    trivia: "Ernie Els shot 31-under here at the 2003 season-opener — a tournament record that stood for over a decade. The Plantation Course's dramatic downhill fairways and trade winds mean players routinely hit the ball 20–30 yards farther than the yardage book shows." },
+  { name: "Bay Hill Club", category: "course", country: "Orlando, Florida, USA", lat: 28.4583, lon: -81.5078,
+    trivia: "Arnold Palmer bought this course in 1976 and lived on the property until he died in 2016. The Arnold Palmer Invitational still plays here every March. His golf cart is parked permanently outside the clubhouse." },
+  { name: "Doral (Blue Monster)", category: "course", country: "Miami, Florida, USA", lat: 25.8126, lon: -80.3463,
+    trivia: "Donald Trump bought Doral in 2012 and overhauled the Blue Monster. The 18th tee shot now requires a 250-yard carry over water with a frequent headwind. Trevor Immelman called it the hardest tee shot in golf." },
+  { name: "Hilton Head Plantation", category: "course", country: "Hilton Head, South Carolina, USA", lat: 32.2163, lon: -80.7526,
+    trivia: "The RBC Heritage tournament has played here since 1969. The lighthouse-framed 18th is one of the most televised holes in golf. Local rule: alligators in hazards play as immovable obstructions. The course has six." },
+  { name: "Streamsong (Black)", category: "course", country: "Polk County, Florida, USA", lat: 27.6595, lon: -81.7956,
+    trivia: "The course is built on reclaimed phosphate mining land — a 7,000-acre site strip-mined for 50 years. The mining created the dunes and lakes that now define the layout. The mineral company kept ownership and built the resort." },
+  { name: "Sun City (Gary Player)", category: "course", country: "North West Province, South Africa", lat: -25.3439, lon: 27.0951,
+    trivia: "The Million Dollar Challenge here was the first golf event with a $1M first-place prize, launched in 1981 when most tournaments paid $100K. South African TV broadcast it during apartheid as proof of international engagement." },
+  { name: "Royal Adelaide", category: "course", country: "Adelaide, South Australia", lat: -34.9067, lon: 138.5841,
+    trivia: "The course is built on sand dunes 4km inland from the sea. The original 1892 routing has barely changed in 130 years. The greens are some of the firmest in world golf — a well-struck wedge can bounce 30 yards past the pin." },
+  { name: "Royal Hong Kong (Fanling)", category: "course", country: "Sheung Shui, Hong Kong", lat: 22.5036, lon: 114.1369,
+    trivia: "The course has hosted the Hong Kong Open since 1959 and sits 200 meters from the mainland China border. After Hong Kong's 1997 handover, the British government renegotiated the course's land lease for HK$1,000 a year." },
+  { name: "St Enodoc", category: "course", country: "Cornwall, England", lat: 50.5500, lon: -4.9000,
+    trivia: "A 14th-century church sits in the middle of the course — the architect's brother insisted it stay when the course was built around it in 1907. Players have to wait if a service is in progress." },
+  { name: "Lofoten Links", category: "course", country: "Lofoten Islands, Norway", lat: 68.3000, lon: 13.7500,
+    trivia: "Played inside the Arctic Circle. During summer, golfers tee off at midnight in 24-hour daylight. The course is closed for half the year due to snow." },
+  { name: "Cabot Cliffs", category: "course", country: "Cape Breton Island, Nova Scotia, Canada", lat: 46.0500, lon: -61.4500,
+    trivia: "Designed by Coore and Crenshaw, opened 2015. Within two years it was ranked top-20 in the world. The 16th tee shot plays directly off a 100-foot cliff into the Atlantic." },
+  { name: "Diamante (El Cardonal)", category: "course", country: "Cabo San Lucas, Mexico", lat: 22.9333, lon: -109.9667,
+    trivia: "Tiger Woods' first design completed in 2014. Located on a Mexican peninsula where most holes face the Pacific. The 18th green sits 40 feet below the tee with the ocean as backdrop." },
+  { name: "Augusta Municipal (The Patch)", category: "course", country: "Augusta, Georgia, USA", lat: 33.4565, lon: -82.1004,
+    trivia: "The public course Augusta National members don't play. Greens fee was $7 in the 1990s and remains under $30 today. Every famous golfer who has played Augusta National has, at some point, also played here." },
+  { name: "Tobacco Road", category: "course", country: "Sanford, North Carolina, USA", lat: 35.5167, lon: -79.0500,
+    trivia: "Built on a former tobacco farm in the North Carolina sandhills. Architect Mike Strantz designed it before dying of cancer at 50. Six of his eight completed courses are now ranked top-100 in America." },
+  { name: "Cabot Saint Lucia", category: "course", country: "Cap Estate, Saint Lucia", lat: 14.0833, lon: -60.9333,
+    trivia: "An ultra-luxury links course in the Caribbean. The 16th hole plays across a sea cliff. Greens fees exceed $750. The course opened in 2024 with seven holes touching the ocean." },
+  { name: "CuisinArt Anguilla", category: "course", country: "Anguilla, British West Indies", lat: 18.2206, lon: -63.0686,
+    trivia: "Designed by Greg Norman, this was the first championship golf course on the British Overseas Territory of Anguilla. Trade winds blow consistently at 15-25 mph. The greens are saltwater-tolerant paspalum." },
+  { name: "Casa de Campo (Teeth of the Dog)", category: "course", country: "La Romana, Dominican Republic", lat: 18.4252, lon: -68.9120,
+    trivia: "Designed by Pete Dye, seven holes play along the Caribbean coast. Dye routed them so close to the ocean that storm-driven spray can reach the fairways. The name comes from the jagged rocks lining the shore." },
+  { name: "Iberostar Praia do Forte", category: "course", country: "Bahia, Brazil", lat: -12.5667, lon: -38.0000,
+    trivia: "One of Brazil's only championship-standard courses. Designed by Dan Blankenship. Capybaras regularly graze on the fairways and don't move when players approach." },
 
   // --- MAJOR / RYDER CUP VENUES ---
   { name: "Pinehurst No. 2", category: "major", country: "USA · North Carolina", lat: 35.193, lon: -79.473,
-    trivia: "Donald Ross's masterpiece with infamous 'turtleback' greens. Hosted its fourth US Open in 2024 (Bryson DeChambeau)." },
-  { name: "Quail Hollow", category: "major", country: "USA · North Carolina", lat: 35.157, lon: -80.788,
-    trivia: "Home of the Wells Fargo Championship and 2017 + 2025 PGA Championships. The closing 'Green Mile' is among the toughest finishes on Tour." },
+    trivia: "The greens here have no flat spots — they crown away from the centre in every direction. During the 2014 US Open, all the collar rough was removed and replaced with native sandy waste. Phil Mickelson's chip that rolled off the 18th green handed the title to Martin Kaymer." },
+  { name: "Quail Hollow", category: "major", country: "USA · North Carolina", lat: 35.1497, lon: -80.8472,
+    trivia: "The closing stretch (16, 17, 18) is nicknamed 'The Green Mile' — three brutal holes that have decided every Wells Fargo Championship and the 2017 PGA. Justin Thomas won that PGA at age 24, becoming the youngest PGA champion since Tiger in 2007." },
   { name: "Bethpage Black", category: "major", country: "USA · New York", lat: 40.745, lon: -73.456,
-    trivia: "A public course famous for its warning sign: 'recommended only for highly skilled golfers.' Hosts the 2025 Ryder Cup." },
+    trivia: "Bethpage Black is a state park. Anyone can pay a public green fee and play the same turf that's hosting the 2025 Ryder Cup. Players routinely sleep in their cars overnight to snag a morning tee time." },
   { name: "Royal Troon", category: "major", country: "Scotland", lat: 55.534, lon: -4.648,
-    trivia: "Site of the 'Postage Stamp' 8th — just 123 yards but ruthlessly defended by bunkers. Hosted The Open in 2024." },
+    trivia: "The Postage Stamp 8th plays just 123 yards — the shortest hole in Open Championship rotation. In 1973, 71-year-old Gene Sarazen made a hole-in-one there on Wednesday. He came back Thursday and holed out from a bunker for a 2." },
   { name: "The Olympic Club (Lake)", category: "major", country: "USA · California", lat: 37.736, lon: -122.493,
-    trivia: "A tree-lined cliffside course in San Francisco famous for upsets — Hogan, Palmer, and Nicklaus all lost US Opens here." },
-  { name: "Erin Hills", category: "major", country: "USA · Wisconsin", lat: 43.107, lon: -88.339,
-    trivia: "Vast, treeless rolling-prairie course that hosted the 2017 US Open at over 7,800 yards — the longest ever played." },
+    trivia: "Arnold Palmer held a 7-shot lead here with 9 holes to play at the 1966 US Open and lost to Billy Casper. He gave all 7 shots back on the back nine. Sports Illustrated called it the greatest collapse in American golf history." },
+  { name: "Erin Hills", category: "major", country: "USA · Wisconsin", lat: 43.2342, lon: -88.3742,
+    trivia: "The 2017 US Open here was played at over 7,800 yards — the longest in the event's history. Brooks Koepka shot 16-under to win, a US Open record. The course was specifically lengthened after Tiger Woods announced he was entering." },
   { name: "The Country Club (Brookline)", category: "major", country: "USA · Massachusetts", lat: 42.328, lon: -71.157,
-    trivia: "One of the USGA's five founding clubs. In 1913, 20-year-old amateur Francis Ouimet beat Vardon and Ray here in golf's defining upset." },
-  { name: "Hazeltine National", category: "major", country: "USA · Minnesota", lat: 44.866, lon: -93.514,
-    trivia: "First course to host all five USGA major championships. Site of the 2016 Ryder Cup where USA ended a 25-year drought." },
+    trivia: "Francis Ouimet was 20 years old, an amateur, and lived directly across the street from this course. His caddie Eddie Lowery was 10 years old. Together they beat the two best professionals in the world in an 18-hole playoff for the 1913 US Open." },
+  { name: "Hazeltine National", category: "major", country: "USA · Minnesota", lat: 44.8431, lon: -93.5947,
+    trivia: "Patrick Reed and Rory McIlroy's 2016 Ryder Cup singles match here became a direct duel — trash talk, fist pumps, a roaring crowd. Reed won 1-up in what commentators called the defining match of a generation. The US ended a 25-year Ryder Cup drought." },
   { name: "Medinah (No. 3)", category: "major", country: "USA · Illinois", lat: 41.974, lon: -88.039,
-    trivia: "Site of the 2012 'Miracle at Medinah' — Europe's stunning Sunday Ryder Cup comeback from 10–6 down." },
+    trivia: "Ian Poulter birdied the last 5 holes of Saturday afternoon at the 2012 Ryder Cup here, single-handedly reversing a match Europe appeared to be losing. Europe trailed 10-6 going into Sunday and won 14½–13½ — the greatest Ryder Cup comeback ever." },
   { name: "Marco Simone", category: "major", country: "Italy", lat: 41.991, lon: 12.700,
-    trivia: "2023 Ryder Cup host outside Rome, where Europe romped to a 16½–11½ victory under captain Luke Donald." },
+    trivia: "Europe won the 2023 Ryder Cup here 16½–11½. The American team had better individual stats in almost every category and still lost by 5½ points. The margin was almost entirely explained by the crowd." },
   { name: "Kiawah Island (Ocean)", category: "major", country: "USA · South Carolina", lat: 32.605, lon: -80.071,
-    trivia: "Pete Dye's beachside test. Site of the 1991 'War on the Shore' and Phil Mickelson's 2021 PGA win at age 50 — the oldest major winner ever." },
+    trivia: "Phil Mickelson won the 2021 PGA Championship here at age 50 — the oldest major winner in golf history by two years. He was barely sleeping during the week, preparing until 3am each night, and credited intermittent fasting as a factor." },
   { name: "Torrey Pines (South)", category: "major", country: "USA · California", lat: 32.901, lon: -117.255,
-    trivia: "A public cliffside course in La Jolla. Tiger's 91-hole 2008 US Open win on a broken leg is one of golf's most iconic moments." },
+    trivia: "Tiger played 91 holes of the 2008 US Open on a broken leg and torn ACL, then had surgery two days later. His doctor said afterward he had no idea how Tiger had physically managed to compete." },
   { name: "Winged Foot (West)", category: "major", country: "USA · New York", lat: 40.961, lon: -73.755,
-    trivia: "A.W. Tillinghast's brutal Mamaroneck classic. Bryson DeChambeau's 2020 US Open win was the only sub-par total on the week." },
+    trivia: "Hale Irwin won here at 7-over. Fuzzy Zoeller won here at 4-over (in a playoff). In 2020, Bryson DeChambeau won at 6-under — the only time anyone has beaten par to win the US Open at Winged Foot." },
   { name: "Riviera Country Club", category: "major", country: "USA · California", lat: 34.054, lon: -118.508,
-    trivia: "'Hogan's Alley' in Pacific Palisades. The par-3 6th has a bunker in the middle of the green. Hosts the 2028 Olympic golf events." },
+    trivia: "The 6th hole has a bunker in the middle of the green — the only one of its kind on a major championship course. The architect, George Thomas, never explained why he built it there." },
   { name: "East Lake", category: "major", country: "USA · Georgia", lat: 33.745, lon: -84.336,
-    trivia: "Bobby Jones's home course in Atlanta and the year-end home of the PGA Tour Championship. Xander Schauffele won the 2024 FedEx Cup here." },
+    trivia: "The club fell into serious disrepair through the 70s and 80s and became a municipal facility. It was revived in 1994 through a PGA Tour partnership, and the surrounding neighbourhood was rebuilt around it." },
   { name: "Muirfield Village", category: "major", country: "USA · Ohio", lat: 40.128, lon: -83.149,
-    trivia: "Jack Nicklaus's home-design masterpiece in Dublin, Ohio. Hosts the Memorial Tournament, Nicklaus's personal gift to the PGA Tour." },
-  { name: "Valhalla Golf Club", category: "major", country: "USA · Kentucky", lat: 38.225, lon: -85.540,
-    trivia: "Designed by Jack Nicklaus in the rolling hills of Louisville. Hosted the 2008 Ryder Cup and Xander Schauffele's 2024 PGA Championship win." },
-  { name: "The Belfry (Brabazon)", category: "major", country: "England · Warwickshire", lat: 52.510, lon: -1.634,
-    trivia: "The spiritual home of the Ryder Cup in England, hosting it four times. Sam Torrance holed the winning putt in 1985 in tears." },
+    trivia: "Nicklaus personally designed this course and continues to redesign it. He's made major changes to individual holes at least seven times since opening in 1974. Visiting players say no two trips feel like quite the same course." },
+  { name: "Valhalla Golf Club", category: "major", country: "USA · Kentucky", lat: 38.2845, lon: -85.4953,
+    trivia: "Xander Schauffele won the 2024 PGA Championship here by holing a bunker shot on the 72nd hole for birdie. It was his first major after 26 consecutive starts without a win — the longest such streak in the modern era." },
+  { name: "The Belfry (Brabazon)", category: "major", country: "England · Warwickshire", lat: 52.5567, lon: -1.7253,
+    trivia: "Sam Torrance holed the winning putt on the 18th in 1985 and burst into tears. It was Europe's first Ryder Cup win in 28 years. The moment became the most-watched minute in golf television history up to that point." },
   { name: "Celtic Manor (Twenty Ten)", category: "major", country: "Wales", lat: 51.591, lon: -2.959,
-    trivia: "Specially built for the 2010 Ryder Cup, which was delayed by rain to a Monday finish — the first ever. Europe won 14½–13½." },
+    trivia: "The 2010 Ryder Cup here finished on a Monday — the only time in history it's gone beyond Sunday. A full day's play was lost to rain. Graeme McDowell holed the winning putt on the final hole. The 18th green is now named after him." },
 
   // --- PLAYER BIRTHPLACES ---
   { name: "Tiger Woods", category: "player", country: "Cypress, California, USA", lat: 33.817, lon: -118.038,
-    trivia: "Born 30 December 1975. Won the US Junior at 15, the US Amateur at 18, and The Masters at 21 — by 12 shots." },
+    trivia: "Tiger appeared on The Mike Douglas Show at age 2, hitting shots alongside Bob Hope. He turned professional at 20, and the first Nike ad ran the same day: 'Hello, world.'" },
   { name: "Jack Nicklaus", category: "player", country: "Columbus, Ohio, USA", lat: 39.961, lon: -82.999,
-    trivia: "The Golden Bear, born 1940. Won a record 18 professional majors and is widely considered the greatest golfer of all time." },
+    trivia: "At 46, Jack came from behind at the 1986 Masters with a back-nine 30 on Sunday. He hadn't won a major in six years. When his name hit the top of the leaderboard on 16, the crowd noise was audible across the property." },
   { name: "Arnold Palmer", category: "player", country: "Latrobe, Pennsylvania, USA", lat: 40.288, lon: -79.380,
-    trivia: "The King, born 1929. His charisma created 'Arnie's Army' and helped golf explode into a TV-friendly sport in the 1960s." },
+    trivia: "Arnie's agent, Mark McCormack, invented professional sports management as an industry by signing Palmer as his first client. Before McCormack, athletes negotiated deals personally or not at all." },
   { name: "Seve Ballesteros", category: "player", country: "Pedreña, Spain", lat: 43.439, lon: -3.776,
-    trivia: "Born 1957 in a small fishing village. The swashbuckling Spaniard learned golf with a single 3-iron on the beach. Five majors." },
+    trivia: "Seve practiced bunker play more than grass shots — his escapes were so improbably good that opponents accused him of missing fairways on purpose. He won 5 majors despite rarely hitting the ball straight." },
   { name: "Gary Player", category: "player", country: "Johannesburg, South Africa", lat: -26.205, lon: 28.050,
-    trivia: "Born 1935. The 'Black Knight' won the career Grand Slam and 9 majors. First non-American to win The Masters (1961)." },
+    trivia: "Gary Player has flown over 15 million air miles — more than any athlete in history. He still travels internationally for fitness training in his 80s. He won his first major in 1959 and his last in 1978, nineteen years apart." },
   { name: "Greg Norman", category: "player", country: "Mount Isa, Australia", lat: -20.725, lon: 139.494,
-    trivia: "The Great White Shark, born 1955 in a remote outback mining town. Held world #1 for 331 weeks but won 'only' two Open Championships." },
+    trivia: "Greg Norman holds the record for most runner-up finishes in majors — 7 second places. He led every major into the final round at least once in his career. In 1996, he led The Masters by 6 shots going into Sunday and shot 78." },
   { name: "Nick Faldo", category: "player", country: "Welwyn Garden City, England", lat: 51.799, lon: -0.205,
-    trivia: "Born 1957. Six-time major champion known for ruthless precision and his iconic 1996 Masters comeback over Greg Norman." },
+    trivia: "At the 1996 Masters, Greg Norman led by 6 shots entering Sunday. Faldo shot 67, Norman shot 78. When Faldo embraced Norman on the 18th green, he whispered something to him. He has never publicly said what it was." },
   { name: "Phil Mickelson", category: "player", country: "San Diego, California, USA", lat: 32.715, lon: -117.161,
-    trivia: "Lefty, born 1970. Six-time major champion who became the oldest major winner ever at the 2021 PGA Championship, aged 50." },
+    trivia: "Phil is left-handed because he learned to swing by mirroring his right-handed father across from him as a toddler. He does everything else right-handed. He's also a near-scratch pool player." },
   { name: "Rory McIlroy", category: "player", country: "Holywood, Northern Ireland", lat: 54.642, lon: -5.825,
-    trivia: "Born 1989 in a Belfast suburb. Four-time major champion and world #1 for over 100 weeks. Won the 2025 Masters to complete the career Grand Slam." },
+    trivia: "When Rory won the 2025 Masters to complete his career Grand Slam, he collapsed onto the 18th green. He had spent 10 years as the most likely person in golf to complete the Slam without actually doing it." },
   { name: "Scottie Scheffler", category: "player", country: "Ridgewood, New Jersey, USA", lat: 40.979, lon: -74.117,
-    trivia: "Born 1996, raised in Dallas. World #1 for most of 2022–2025 and two-time Masters champion." },
+    trivia: "Scheffler was handcuffed by police in a parking lot traffic incident the morning of the 2024 PGA Championship. He was released within the hour, played the first round, and shot 66." },
   { name: "Jon Rahm", category: "player", country: "Barrika, Spain", lat: 43.428, lon: -2.949,
-    trivia: "Born 1994 in Basque Country. 2021 US Open and 2023 Masters champion. Famous for his compact, powerful backswing." },
+    trivia: "Rahm was born with a club foot — his right foot is significantly shorter than his left. He uses a custom shoe and an unconventional stance. Youth coaches said it would prevent a professional career. He became world #1 at 26." },
   { name: "Hideki Matsuyama", category: "player", country: "Matsuyama, Japan", lat: 33.842, lon: 132.766,
-    trivia: "Born 1992. Became the first Japanese man to win a men's major at the 2021 Masters — a watershed moment for Asian golf." },
+    trivia: "After Matsuyama won the 2021 Masters, his caddie Shota Hayashi stood alone on the 18th green, removed his hat, and bowed to the course. The moment was broadcast live and became one of the most-watched sports clips in Japanese television history." },
   { name: "Jordan Spieth", category: "player", country: "Dallas, Texas, USA", lat: 32.776, lon: -96.797,
-    trivia: "Born 1993. Won the Masters and US Open in 2015 at age 21, then The Open in 2017 — three legs of the career Grand Slam." },
+    trivia: "In 2015 at age 21, Spieth won the Masters and the US Open, then led The Open after 54 holes and led the PGA Championship through 9 holes on Sunday. He's the only player since Tiger to win two majors in the same calendar year before turning 22." },
   { name: "Adam Scott", category: "player", country: "Adelaide, Australia", lat: -34.928, lon: 138.600,
-    trivia: "Born 1980. Australia's only Masters champion (2013), sinking a long birdie putt on the 2nd playoff hole in pouring rain." },
+    trivia: "Adam Scott led The Open in 2012 by one shot with four holes to play — and bogeyed all four to lose by one. He won The Masters the following year. Commentators called it the most complete arc of heartbreak and redemption in the sport." },
   { name: "Ben Hogan", category: "player", country: "Stephenville, Texas, USA", lat: 32.220, lon: -98.202,
-    trivia: "Born 1912. Won 9 majors despite a near-fatal 1949 car crash. 'The Hawk' is golf's high priest of ball-striking." },
+    trivia: "A Greyhound bus ran a stop sign and hit Hogan's car head-on in February 1949. He threw himself across his wife to shield her; the steering column went through the driver's seat. Doctors said he'd never walk again. Sixteen months later he won the US Open." },
   { name: "Annika Sörenstam", category: "player", country: "Bro, Sweden", lat: 59.512, lon: 17.643,
-    trivia: "Born 1970 near Stockholm. 72 LPGA wins and 10 majors. Played a PGA Tour event in 2003 — the first woman to do so in 58 years." },
+    trivia: "When Annika played a PGA Tour event in 2003, Vijay Singh said publicly he hoped she'd miss the cut. She shot 71-74 and did miss. She outdrove most of the field. When asked about his comments, she said she hoped he'd play better." },
   { name: "Bryson DeChambeau", category: "player", country: "Modesto, California, USA", lat: 37.639, lon: -120.997,
-    trivia: "Born 1993. The 'Mad Scientist' transformed his body to bomb 350-yard drives. Two-time US Open champion." },
+    trivia: "In 2020, Bryson deliberately gained 40 pounds of muscle in six months — drinking protein shakes through the night and sleeping in an altitude tent. He then drove the ball over 350 yards and won the US Open by 6 shots." },
   { name: "Brooks Koepka", category: "player", country: "West Palm Beach, Florida, USA", lat: 26.715, lon: -80.053,
-    trivia: "Born 1990. Five-time major champion who only gets truly motivated for majors. Famous for his cold intensity under pressure." },
+    trivia: "Brooks Koepka has said in multiple interviews that regular Tour events don't interest him. He holds back-to-back US Open titles (2017–18) and has a documented habit of playing his worst golf in the weeks between majors." },
   { name: "Lydia Ko", category: "player", country: "Seoul, South Korea", lat: 37.566, lon: 126.978,
-    trivia: "Born 1997 in Korea, raised in New Zealand. Youngest world #1 in golf history at 17 — for either gender. Won 2024 Olympic gold." },
+    trivia: "Lydia Ko became world #1 at age 17 — the youngest #1 in golf history for either gender. She then went eight years without a major win. She came back to win the 2023 Chevron Championship and 2024 Olympic gold." },
   { name: "Vijay Singh", category: "player", country: "Lautoka, Fiji", lat: -17.617, lon: 177.467,
-    trivia: "Born 1963. The only Fijian on Tour, famous for hitting more practice balls than anyone alive. Won 3 majors and dethroned Tiger as world #1 in 2004." },
-  { name: "Sam Snead", category: "player", country: "Ashwood, Virginia, USA", lat: 37.991, lon: -79.834,
-    trivia: "Born 1912 in rural Appalachia. 'Slammin' Sammy' holds the all-time PGA Tour wins record (82) and won a Tour event at age 52." },
+    trivia: "Vijay Singh was disqualified from a Tour event in the 1980s for submitting a false scorecard, and was banned from several circuits. He rebuilt his career tournament by tournament and became world #1 at age 41 — the oldest player ever to reach that ranking." },
+  { name: "Sam Snead", category: "player", country: "Ashwood, Virginia, USA", lat: 37.7935, lon: -79.8867,
+    trivia: "Sam Snead won 82 PGA Tour events — more than anyone in history — but never won the US Open. His most painful near-miss: he led by one on the 72nd hole in 1939 and made an 8. He said it never left him." },
   { name: "Viktor Hovland", category: "player", country: "Oslo, Norway", lat: 59.913, lon: 10.741,
-    trivia: "Born 1997. Became the first Norwegian to win a World Golf Championships event and won the 2023 Tour Championship. Norway's golfing superstar." },
+    trivia: "Hovland's chipping and pitching were so poor in his first professional season that multiple coaches declined to work with him, calling it unfixable. He hired a new short game coach, rebuilt from scratch, and finished 2023 as FedEx Cup champion." },
   { name: "Tommy Fleetwood", category: "player", country: "Southport, England", lat: 53.646, lon: -3.007,
-    trivia: "Born 1991. One of the world's most stylish ball-strikers. Ryder Cup hero who partnered Molinari for a perfect 5–0 at Paris 2018." },
+    trivia: "Tommy Fleetwood and Francesco Molinari went 5-0 together at the 2018 Ryder Cup, earning the nickname 'Moliwood.' They were so dominant that the captain refused to split them up, even when conventional tactics called for different pairings." },
   { name: "Ernie Els", category: "player", country: "Kempton Park, South Africa", lat: -26.100, lon: 28.228,
-    trivia: "The Big Easy, born 1969. Four-time major champion whose silky swing made every club look effortless. Two-time US Open champion." },
+    trivia: "At the 2016 Masters, Ernie Els stood over a routine 3-foot par putt on the 1st hole and missed it. Then missed again. Then again. He six-putted the first green at Augusta in front of a live television audience." },
   { name: "Padráig Harrington", category: "player", country: "Dublin, Ireland", lat: 53.333, lon: -6.249,
-    trivia: "Born 1971. Won three majors in two years (2007–08) — two Opens and a PGA Championship. European Ryder Cup captain in 2021." },
+    trivia: "Harrington led the 2007 Open by one shot standing on the 72nd tee, then hit his second shot into the Barry Burn water hazard. He made double-bogey 6, finished tied with Sergio Garcia, and won the playoff the next morning." },
   { name: "Colin Montgomerie", category: "player", country: "Glasgow, Scotland", lat: 55.864, lon: -4.252,
-    trivia: "Born 1963. Won eight European Tour Order of Merit titles in a row and went unbeaten in Ryder Cup singles across all five appearances." },
-  { name: "Lee Trevino", category: "player", country: "Dallas, Texas, USA", lat: 32.851, lon: -96.852,
-    trivia: "Born 1939 near Dallas. 'Super Mex' grew up without electricity or running water. Six majors, famous wit, and a lightning-strike survivor." },
+    trivia: "Montgomerie won eight European Tour Order of Merit titles and went unbeaten in Ryder Cup singles — but never won a major. He finished runner-up in a US Open playoff three times. Statistically, he may be the best player of his era never to have won one." },
+  { name: "Lee Trevino", category: "player", country: "Dallas, Texas, USA", lat: 32.7767, lon: -96.7970,
+    trivia: "Lightning struck Trevino at the 1975 Western Open, hospitalised him, and contributed to chronic back problems. He won one more major after — the 1984 PGA Championship at age 44. When asked how he survived the strike, he said he'd held up a 1-iron: 'because even God can't hit a 1-iron.'" },
   { name: "Lorena Ochoa", category: "player", country: "Guadalajara, Mexico", lat: 20.659, lon: -103.350,
-    trivia: "Born 1981. Held world #1 for 158 weeks and won 10 LPGA majors. Retired at age 27 at the peak of her powers to start a family." },
+    trivia: "Lorena Ochoa retired in 2010 at age 29, ranked #1 in the world and coming off two dominant seasons. She said she wanted to start a family. She has never returned to competitive play." },
   { name: "Nelly Korda", category: "player", country: "Bradenton, Florida, USA", lat: 27.499, lon: -82.575,
-    trivia: "Born 2000. Daughter of Czech tennis champion Petr Korda. Won Olympic gold in 2021 and dominated the 2024 LPGA season with six wins." },
+    trivia: "Nelly Korda won 6 LPGA events in a 16-week stretch in 2024 — the most dominant run in women's golf since Annika Sörenstam. Her father won the 1998 Australian Open in tennis; her brother is a top-30 ATP professional." },
   { name: "Justin Thomas", category: "player", country: "Louisville, Kentucky, USA", lat: 38.252, lon: -85.759,
-    trivia: "Born 1993. Two-time PGA Champion and former world #1, known for incredible iron play and explosive ball-striking statistics." },
+    trivia: "Justin Thomas shot a 59 at the 2017 Sony Open, joining a handful of players in Tour history to break 60. He was 23 years old. He followed it with a 63 the very next day." },
+  { name: "Bobby Jones", category: "player", country: "Atlanta, Georgia, USA", lat: 33.7490, lon: -84.3880,
+    trivia: "Bobby Jones won 13 majors as an amateur — refusing to ever turn professional. He retired from competitive golf at 28, the year he won the Grand Slam in 1930. He then designed Augusta National." },
+  { name: "Dustin Johnson", category: "player", country: "Columbia, South Carolina, USA", lat: 34.0007, lon: -81.0348,
+    trivia: "DJ was suspended from the PGA Tour for six months in 2014 — officially called personal leave, but the suspension was the worst-kept secret in golf. He came back, won the 2016 US Open, and reached world number one." },
+  { name: "Sergio Garcia", category: "player", country: "Castellón, Spain", lat: 39.9864, lon: -0.0513,
+    trivia: "Sergio finished 2nd in 4 majors before winning his first at the 2017 Masters in a playoff. He celebrated by climbing a tree. He was 37, married three days later, and named his daughter Azalea after Augusta." },
+  { name: "Old Tom Morris", category: "player", country: "St Andrews, Scotland", lat: 56.3398, lon: -2.7967,
+    trivia: "Old Tom was greenkeeper at St Andrews, won 4 Opens, and outlived all four of his children. His son Young Tom died at 24 on Christmas Day, four months after his wife. Old Tom buried himself in work and lived to 86." },
+  { name: "Y.E. Yang", category: "player", country: "Jeju Island, South Korea", lat: 33.4996, lon: 126.5312,
+    trivia: "Yang beat Tiger Woods head-to-head at the 2009 PGA Championship — the only time Tiger lost a major when leading after 54 holes. Yang didn't start golf until age 19 and worked as a bodybuilder before turning pro." },
 
   // --- GOLF LANDMARKS ---
   { name: "TPC Scottsdale (Stadium 16th)", category: "landmark", country: "USA · Arizona", lat: 33.643, lon: -111.913,
-    trivia: "The rowdiest hole in golf. Each February, 20,000+ fans pack the stadium par-3 at the Phoenix Open and erupt for every hole-in-one." },
+    trivia: "The 16th here is surrounded by stadium seating for 20,000 fans. Make a hole-in-one and the crowd floods the green. Players have described it as simultaneously the most terrifying and the best moment of their professional lives." },
   { name: "Harbour Town Lighthouse", category: "landmark", country: "USA · South Carolina", lat: 32.139, lon: -80.811,
-    trivia: "The candy-striped 1970 lighthouse behind the 18th at Harbour Town Golf Links — golf's most photographed finishing hole, home of the RBC Heritage." },
+    trivia: "Pete Dye designed the course in 1969 specifically to frame the lighthouse as the backdrop for the 18th green. The lighthouse was built the same year for the development — making it one of the few American lighthouses constructed in the 20th century." },
   { name: "USGA Headquarters", category: "landmark", country: "Liberty Corner, New Jersey, USA", lat: 40.685, lon: -74.582,
-    trivia: "The home of American golf since 1972 — a museum and testing lab where every USGA-conforming ball and club is verified." },
+    trivia: "The USGA's equipment lab tests clubs and balls using a robot swing nicknamed 'Iron Byron' — named after Byron Nelson's legendary consistency. They've tested over 1,700 ball models. Any ball that travels too far is rejected." },
   { name: "Royal Calcutta Golf Club", category: "landmark", country: "Kolkata, India", lat: 22.524, lon: 88.328,
-    trivia: "Founded 1829 — the oldest golf club anywhere outside Great Britain. British soldiers built it before lawnmowers existed; goats kept the fairways trimmed." },
-  { name: "St Andrews Golf Club of Yonkers", category: "landmark", country: "Hastings-on-Hudson, New York, USA", lat: 41.011, lon: -73.802,
-    trivia: "The oldest continuously operating golf club in the USA, founded in 1888 by 'Apple Tree Gang' Scotsmen who hung their jackets on a tree by the 1st." },
+    trivia: "Founded in 1829, it's the oldest golf club in the world outside Britain. The original committee minutes are preserved — and the very first recorded complaint was about slow play." },
+  { name: "St Andrews Golf Club of Yonkers", category: "landmark", country: "Hastings-on-Hudson, New York, USA", lat: 40.9882, lon: -73.8773,
+    trivia: "The founding members hung their jackets on an apple tree by the 1st hole because there was no clubhouse. The club still marks the site of that original tree as a historic landmark." },
   { name: "Prestwick Golf Club", category: "landmark", country: "Ayrshire, Scotland", lat: 55.498, lon: -4.609,
-    trivia: "Birthplace of The Open Championship. The first 12 Opens were played here (1860–1872). Old Tom Morris and Young Tom Morris dominated those early years." },
-  { name: "World Golf Hall of Fame", category: "landmark", country: "St Augustine, Florida, USA", lat: 30.227, lon: -81.395,
-    trivia: "Opened in 1998 near Ponte Vedra Beach. New inductees must sink a hole-in-one on a replica island green during their induction ceremony." },
+    trivia: "Young Tom Morris won three Opens in a row from 1868 to 1870. The rules said three straight wins meant you kept the Championship Belt for good — he did, and the 1871 Open was cancelled while organisers figured out a replacement. The new trophy was the Claret Jug." },
+  { name: "World Golf Hall of Fame", category: "landmark", country: "St Augustine, Florida, USA", lat: 29.9842, lon: -81.4736,
+    trivia: "Every inductee must make a hole-in-one on a short par-3 before the ceremony is complete. Some inductees have taken dozens of attempts. Jack Nicklaus reportedly made it in three." },
   { name: "R&A Headquarters", category: "landmark", country: "St Andrews, Scotland", lat: 56.341, lon: -2.804,
-    trivia: "The Royal and Ancient Golf Club, founded 1754. The building overlooks the 1st tee of the Old Course — arguably the most iconic view in golf." },
-  { name: "Amen Corner (Augusta)", category: "landmark", country: "USA · Georgia", lat: 33.498, lon: -82.025,
-    trivia: "Holes 11, 12, and 13 at Augusta National, named by Herbert Warren Wind in 1958. Rae's Creek has drowned countless Masters hopes at the par-3 12th." },
-  { name: "The Swilcan Bridge", category: "landmark", country: "St Andrews, Scotland", lat: 56.343, lon: -2.801,
-    trivia: "An ancient stone arch over the Swilcan Burn on the Old Course 18th, believed to be 700+ years old. Every retiring champion walks it as a farewell." },
+    trivia: "The R&A building sits so close to the Old Course that a pulled tee shot on the 1st can reach the doorstep. No fence separates them. You can watch members having breakfast through the window while competitors play the most famous first hole in golf." },
 
-  // --- COURSE ARCHITECTS ---
-  { name: "Alister MacKenzie", category: "architect", country: "Normanton, Yorkshire, England", lat: 53.693, lon: -1.423,
-    trivia: "Born 1870 in Yorkshire. Designed Augusta National, Cypress Point, and Royal Melbourne. Died in 1934 — before The Masters was ever played." },
-  { name: "Pete Dye", category: "architect", country: "Urbana, Ohio, USA", lat: 40.109, lon: -83.730,
-    trivia: "Born 1925 in Ohio. Designed TPC Sawgrass, Whistling Straits, and Kiawah Ocean. Famous for railroad-tie bunkers and near-impossible island greens." },
-  { name: "A.W. Tillinghast", category: "architect", country: "Philadelphia, Pennsylvania, USA", lat: 39.952, lon: -75.165,
-    trivia: "Born 1874 in Philadelphia. Designed Winged Foot, Bethpage Black, Baltusrol, and Quail Hollow — four of America's most feared major venues." },
-  { name: "Donald Ross", category: "architect", country: "Dornoch, Scotland", lat: 57.880, lon: -4.034,
-    trivia: "Born 1872 in Dornoch. Emigrated to the USA and designed Pinehurst No. 2, Seminole, and over 400 courses. His 'turtleback' greens were his signature." },
-  { name: "Robert Trent Jones Sr.", category: "architect", country: "Ince, Lancashire, England", lat: 53.471, lon: -2.631,
-    trivia: "Born 1906 in Lancashire, England. Emigrated to the USA and became the most prolific golf architect of the 20th century, designing or renovating over 500 courses." },
-  { name: "Harry Colt", category: "architect", country: "Highgate, London, England", lat: 51.570, lon: -0.147,
-    trivia: "Born 1869 in London. Designed Pine Valley and Wentworth West, renovated Royal Portrush. Called the 'father of modern golf architecture'." },
-  { name: "Charles Alison", category: "architect", country: "Malvern, Worcestershire, England", lat: 52.118, lon: -2.322,
-    trivia: "Born 1882 in Malvern. Colt's partner who brought golf architecture to Japan, designing Hirono. Deep bunkers are still called 'Alisons' in Japan." },
-  { name: "Tom Simpson", category: "architect", country: "Market Harborough, England", lat: 52.477, lon: -0.919,
-    trivia: "Born 1877. Designed Chantilly and Morfontaine in France, and renovated Carnoustie. Was known for arriving on-site in a Rolls-Royce wearing a beret." }
+  // --- EQUIPMENT HQ ---
+  { name: "Carlsbad, CA (Golf's Silicon Valley)", category: "equipment", country: "Carlsbad, California, USA", lat: 33.1581, lon: -117.3506,
+    trivia: "TaylorMade, Callaway, Cobra, Odyssey, Scotty Cameron, and Vokey Wedges are all based within a few miles of each other here — not by design, but through organic clustering as engineers moved between companies over decades." },
+  { name: "Titleist / Acushnet HQ", category: "equipment", country: "Fairhaven, Massachusetts, USA", lat: 41.6376, lon: -70.9009,
+    trivia: "When the Pro V1 launched in October 2000, 47 Tour players switched to it in the first week — the largest single-week ball switch in Tour history." },
+  { name: "Ping HQ", category: "equipment", country: "Phoenix, Arizona, USA", lat: 33.5722, lon: -112.0892,
+    trivia: "Karsten Solheim was a GE aerospace engineer who started making putters in his garage because he couldn't make putts. He never played competitive golf professionally. Ping now sells equipment in over 80 countries." },
+  { name: "Mizuno Golf", category: "equipment", country: "Osaka, Japan", lat: 34.6937, lon: 135.5023,
+    trivia: "Every Mizuno MP-series iron is individually grain-flow forged from a single billet of steel — a process requiring a craftsman to judge by feel when the metal has been worked correctly. The same family has overseen the forging for three generations." },
+  { name: "Srixon / Sumitomo Rubber", category: "equipment", country: "Kobe, Japan", lat: 34.6901, lon: 135.1955,
+    trivia: "Sumitomo Rubber started making golf balls in 1930 as a side project from making car tyres. The same vulcanised rubber chemistry applies to both. Today the company owns Srixon, Cleveland Golf, and XXIO — three completely different price tiers." },
+  { name: "PXG HQ", category: "equipment", country: "Scottsdale, Arizona, USA", lat: 33.6411, lon: -111.9261,
+    trivia: "Bob Parsons spent more than $10 million in R&D before selling a single club. When PXG launched, irons were priced over $300 each — roughly five times the cost of a standard premium iron. There was a waiting list immediately." },
+  { name: "Wilson Sporting Goods", category: "equipment", country: "Chicago, Illinois, USA", lat: 41.9742, lon: -87.6553,
+    trivia: "Wilson has made golf clubs since 1914 — 20 years before the first Masters. Sam Snead, who holds the all-time PGA Tour wins record, won every one of his 82 victories with Wilson equipment." },
+  { name: "Bushnell HQ", category: "equipment", country: "Overland Park, Kansas, USA", lat: 38.9822, lon: -94.6708,
+    trivia: "Bushnell's laser rangefinder launched in 1992 for hunting and military use. Golfers started buying them anyway, realised they were more accurate than pacing yardages, and created demand the company hadn't anticipated. The PGA Tour banned them for a decade before eventually legalising them." }
 ];
 
 // =============================================================
@@ -899,14 +1095,14 @@ const CATS = {
   major:     { icon: "🏆", label: "Championship Venue",    hint: "Find this championship venue" },
   player:    { icon: "🏌", label: "Player Birthplace",    hint: "Find where this player was born" },
   landmark:  { icon: "🏛", label: "Golf Landmark",         hint: "Find this golf landmark" },
-  architect: { icon: "📏", label: "Architect Birthplace",  hint: "Find where this architect was born" }
+  equipment: { icon: "🔧", label: "Equipment HQ",          hint: "Find this equipment maker's headquarters" }
 };
 
 // =============================================================
 // GAME STATE
 // =============================================================
 const EARTH_R    = 6371; // km
-const SCORE_DECAY= 1800; // km — exponential decay constant
+const SCORE_DECAY_MI = 1500; // miles — exponential decay constant (half-score at ~1040 mi)
 const ROUND_SIZE = 5;
 // Difficulty ramps: 2 easy (1×), 1 medium (2×), 2 hard (3×) — total 1,000 pts.
 const DIFFICULTY_ORDER = ['easy', 'easy', 'medium', 'hard', 'hard'];
@@ -922,40 +1118,39 @@ const diffFor  = (i) => DIFFICULTY_ORDER[i] || 'easy';
 
 // Locations not listed here default to 'easy'. Hard = obscure, remote, or trick.
 const HARD_NAMES = new Set([
-  // Courses
-  "Hirono", "Cape Kidnappers", "Old Head of Kinsale", "Tara Iti",
-  "Coober Pedy Opal Fields", "Mission Hills (Shenzhen)", "Lahinch Golf Club",
-  // Landmarks
-  "Royal Calcutta Golf Club", "St Andrews Golf Club of Yonkers", "Prestwick Golf Club",
-  // Players
-  "Sam Snead", "Vijay Singh", "Hideki Matsuyama", "Annika Sörenstam",
-  "Lorena Ochoa", "Lee Trevino",
-  // Architects
-  "Alister MacKenzie", "Robert Trent Jones Sr.", "Harry Colt", "Charles Alison", "Tom Simpson"
+  // Courses (23)
+  "Hirono", "Cape Kidnappers", "Mission Hills (Shenzhen)", "Old Head of Kinsale",
+  "Tara Iti", "Coober Pedy Opal Fields", "Lahinch Golf Club", "Wentworth Club (West)",
+  "Royal Dornoch", "Kapalua (Plantation Course)",
+  "Sun City (Gary Player)", "Royal Adelaide", "Royal Hong Kong (Fanling)",
+  "St Enodoc", "Lofoten Links", "Cabot Cliffs", "Diamante (El Cardonal)",
+  "Augusta Municipal (The Patch)", "Tobacco Road", "Cabot Saint Lucia",
+  "CuisinArt Anguilla", "Casa de Campo (Teeth of the Dog)", "Iberostar Praia do Forte",
+  // Championship Venues (4)
+  "Hazeltine National", "Medinah (No. 3)", "Marco Simone", "Celtic Manor (Twenty Ten)",
+  // Players (7)
+  "Vijay Singh", "Lorena Ochoa", "Hideki Matsuyama", "Padráig Harrington",
+  "Lydia Ko", "Viktor Hovland", "Y.E. Yang",
+  // Landmarks (4)
+  "Royal Calcutta Golf Club", "St Andrews Golf Club of Yonkers",
+  "Prestwick Golf Club", "R&A Headquarters",
+  // Equipment (8)
+  "Srixon / Sumitomo Rubber", "PXG HQ", "Wilson Sporting Goods", "Bushnell HQ",
+  "Carlsbad, CA (Golf's Silicon Valley)", "Titleist / Acushnet HQ", "Ping HQ", "Mizuno Golf"
 ]);
 const MEDIUM_NAMES = new Set([
-  // Courses
-  "Royal County Down", "Royal Melbourne (Composite)", "Cypress Point",
-  "Royal Portrush (Dunluce Links)", "Oakmont", "Shinnecock Hills",
-  "Whistling Straits (Straits)", "Royal Birkdale", "Valderrama",
-  "Le Golf National (Albatros)", "Royal Dornoch", "Banff Springs", "Pine Valley",
-  "Merion Golf Club (East)", "Seminole Golf Club", "Royal St George's",
-  "Wentworth Club (West)", "Kapalua (Plantation Course)",
-  // Majors
-  "The Olympic Club (Lake)", "Erin Hills", "The Country Club (Brookline)",
-  "Hazeltine National", "Medinah (No. 3)", "Marco Simone", "Kiawah Island (Ocean)",
-  "Winged Foot (West)", "East Lake", "Royal Troon", "Muirfield Village",
-  "Valhalla Golf Club", "The Belfry (Brabazon)", "Celtic Manor (Twenty Ten)",
-  // Players
-  "Seve Ballesteros", "Gary Player", "Greg Norman", "Nick Faldo",
-  "Scottie Scheffler", "Jon Rahm", "Adam Scott", "Ben Hogan", "Lydia Ko",
-  "Viktor Hovland", "Tommy Fleetwood", "Ernie Els", "Padráig Harrington",
-  "Colin Montgomerie", "Nelly Korda", "Justin Thomas", "Bryson DeChambeau", "Brooks Koepka",
-  // Landmarks
-  "USGA Headquarters", "Harbour Town Lighthouse", "World Golf Hall of Fame",
-  "R&A Headquarters", "The Swilcan Bridge",
-  // Architects
-  "Pete Dye", "A.W. Tillinghast", "Donald Ross"
+  // Courses (7)
+  "Royal Melbourne (Composite)", "Banff Springs", "Merion Golf Club (East)",
+  "Seminole Golf Club", "Valderrama", "Le Golf National (Albatros)",
+  "The Belfry (Brabazon)",
+  // Championship Venues (7)
+  "Royal Troon", "The Olympic Club (Lake)", "The Country Club (Brookline)",
+  "Erin Hills", "East Lake", "Muirfield Village", "Valhalla Golf Club",
+  // Players (6)
+  "Gary Player", "Nick Faldo", "Adam Scott", "Brooks Koepka",
+  "Ernie Els", "Colin Montgomerie",
+  // Landmarks (3)
+  "Harbour Town Lighthouse", "USGA Headquarters", "World Golf Hall of Fame"
 ]);
 function locDifficulty(loc) {
   if (HARD_NAMES.has(loc.name)) return 'hard';
@@ -963,7 +1158,25 @@ function locDifficulty(loc) {
   return 'easy';
 }
 
-let projection, path, svg, countriesG, staticG, markersG, sphereSel, statesG;
+// =============================================================
+// GAME MODE + LEVEL DATA
+// =============================================================
+let gameMode = 'random';   // 'random' | 'daily' | 'level'
+let activeLevelNum = null;
+let globeReady = false;
+
+// Stub — locations filled in next prompt
+const LEVEL_DATA = [
+  { id:  1, locs: [] }, { id:  2, locs: [] }, { id:  3, locs: [] },
+  { id:  4, locs: [] }, { id:  5, locs: [] }, { id:  6, locs: [] },
+  { id:  7, locs: [] }, { id:  8, locs: [] }, { id:  9, locs: [] },
+  { id: 10, locs: [] }, { id: 11, locs: [] }, { id: 12, locs: [] },
+  { id: 13, locs: [] }, { id: 14, locs: [] }, { id: 15, locs: [] },
+  { id: 16, locs: [] }, { id: 17, locs: [] }, { id: 18, locs: [] },
+  { id: 19, locs: [] }, { id: 20, locs: [] }
+];
+
+let projection, path, svg, countriesG, staticG, markersG, sphereSel;
 let width, height, scale0;
 let queue = [];
 let currentIdx = 0;
@@ -1082,79 +1295,73 @@ function initGlobe() {
     .attr('class', 'country-path')
     .attr('d', path);
 
-  // US state borders (drawn above countries, below markers)
-  statesG = svg.append('g').attr('class', 'states');
-  fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
-    .then(r => r.json())
-    .then(us => {
-      statesG.selectAll('path')
-        .data(topojson.feature(us, us.objects.states).features)
-        .enter().append('path')
-        .attr('class', 'state-border')
-        .attr('d', path);
-    });
-
   // Markers / arc layer (drawn on top)
   markersG = svg.append('g').attr('class', 'markers');
 
   // === Interaction ===
-  let dragStart = null;
-  let dragMoved = false;
-  const activePointers = new Map();
+  const activePointers = new Map(); // pointerId → [x, y]
   let pinchStartDist = null;
   let pinchStartScale = null;
+  let wasPinching = false;
+  let dragStart = null;
+  let dragMoved = false;
 
   svg.on('pointerdown', function (event) {
-    if (event.button !== undefined && event.button !== 0) return;
-    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     event.preventDefault();
     this.setPointerCapture(event.pointerId);
+    const [x, y] = d3.pointer(event, this);
+    activePointers.set(event.pointerId, [x, y]);
+    autoRotate = false;
+    lastInteract = performance.now();
 
-    if (activePointers.size >= 2) {
-      // Second finger — cancel drag and start pinch zoom
-      dragStart = null;
-      dragMoved = true; // prevent tap-guess on lift
-      svg.classed('dragging', false);
+    if (activePointers.size === 2) {
+      // Second finger — enter pinch mode, cancel any ongoing drag
       const pts = [...activePointers.values()];
-      pinchStartDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      pinchStartDist = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]);
       pinchStartScale = projection.scale();
-      autoRotate = false;
-      lastInteract = performance.now();
+      wasPinching = true;
+      dragStart = null;
+      svg.classed('dragging', false);
       return;
     }
+    if (activePointers.size > 2) return;
 
-    const [x, y] = d3.pointer(event, this);
+    // Single pointer — rotate/drag mode (ignore non-primary mouse buttons)
+    if (event.button !== undefined && event.button > 0) return;
     const inv = projection.invert([x, y]);
     if (!inv) return;
     dragStart = {
       v0: versor.cartesian(inv),
       r0: projection.rotate(),
       q0: versor.fromAngles(projection.rotate()),
-      x, y, t: performance.now()
+      x, y
     };
     dragMoved = false;
-    autoRotate = false;
     svg.classed('dragging', true);
-    lastInteract = performance.now();
   });
 
   svg.on('pointermove', function (event) {
-    if (!activePointers.has(event.pointerId)) return;
-    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    const [x, y] = d3.pointer(event, this);
+    if (activePointers.has(event.pointerId)) {
+      activePointers.set(event.pointerId, [x, y]);
+    }
+    lastInteract = performance.now();
 
+    // Pinch zoom
     if (activePointers.size >= 2 && pinchStartDist !== null) {
       const pts = [...activePointers.values()];
-      const newDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-      const factor = newDist / pinchStartDist;
-      const newScale = Math.max(scale0 * 0.55, Math.min(scale0 * 3.2, pinchStartScale * factor));
+      const dist = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]);
+      const newScale = Math.max(
+        scale0 * 0.55,
+        Math.min(scale0 * 6.5, pinchStartScale * (dist / pinchStartDist))
+      );
       projection.scale(newScale);
       refresh();
-      lastInteract = performance.now();
       return;
     }
 
+    // Single-pointer rotate
     if (!dragStart) return;
-    const [x, y] = d3.pointer(event, this);
     if (!dragMoved) {
       if (Math.abs(x - dragStart.x) + Math.abs(y - dragStart.y) < 8) return;
       dragMoved = true;
@@ -1167,20 +1374,29 @@ function initGlobe() {
     r[2] = 0;
     projection.rotate(r);
     refresh();
-    lastInteract = performance.now();
   });
 
   function endDrag(event) {
     activePointers.delete(event.pointerId);
+
     if (activePointers.size < 2) {
       pinchStartDist = null;
       pinchStartScale = null;
     }
+
+    // Lift after pinch — don't register as a tap
+    if (activePointers.size === 0 && wasPinching) {
+      wasPinching = false;
+      dragStart = null;
+      svg.classed('dragging', false);
+      return;
+    }
+
     if (!dragStart) return;
     const wasDrag = dragMoved;
     dragStart = null;
     svg.classed('dragging', false);
-    if (!wasDrag && acceptingGuesses) {
+    if (!wasDrag && acceptingGuesses && activePointers.size === 0) {
       const [x, y] = d3.pointer(event, svg.node());
       handleGuess(x, y);
     }
@@ -1195,7 +1411,7 @@ function initGlobe() {
     autoRotate = false;
     const delta = -event.deltaY;
     const factor = Math.exp(delta * 0.001);
-    const newScale = Math.max(scale0 * 0.55, Math.min(scale0 * 3.2, projection.scale() * factor));
+    const newScale = Math.max(scale0 * 0.55, Math.min(scale0 * 6.5, projection.scale() * factor));
     projection.scale(newScale);
     refresh();
     lastInteract = performance.now();
@@ -1211,6 +1427,7 @@ function initGlobe() {
 }
 
 function onResize() {
+  if (!globeReady) return;
   const wrap = document.getElementById('globe-wrap');
   width = wrap.clientWidth;
   height = wrap.clientHeight;
@@ -1225,7 +1442,6 @@ function refresh() {
   sphereSel.attr('d', path);
   staticG.selectAll('path').attr('d', path);
   countriesG.selectAll('path').attr('d', path);
-  if (statesG) statesG.selectAll('path').attr('d', path);
   redrawMarkers();
 }
 
@@ -1314,13 +1530,12 @@ function handleGuess(x, y) {
   svg.classed('aiming', false);
 
   const loc  = queue[currentIdx];
-  const dist = greatCircleKm([inv[0], inv[1]], [loc.lon, loc.lat]);
-  const mult = multFor(currentIdx);
-  const max  = maxFor(currentIdx);
-  const base = Math.round(BASE_PER_ROUND * Math.exp(-dist / SCORE_DECAY));
-  const points = base * mult;
+  const dist     = greatCircleKm([inv[0], inv[1]], [loc.lon, loc.lat]);
+  const distMi   = dist * 0.621371;
+  const max      = maxFor(currentIdx);
+  const points   = Math.round(max * Math.exp(-distMi / SCORE_DECAY_MI));
 
-  results.push({ loc, guess: inv, dist, points, max, mult, base });
+  results.push({ loc, guess: inv, dist, points, max });
   totalScore += points;
   document.getElementById('score-value').textContent = totalScore.toLocaleString();
   updateDots();
@@ -1329,7 +1544,7 @@ function handleGuess(x, y) {
   spinTo(loc.lon, loc.lat, () => {
     redrawMarkers();
     showRevealCard(loc, dist, points, max);
-  }, scale0 * 1.6);
+  });
 }
 
 function greatCircleKm(a, b) {
@@ -1337,13 +1552,11 @@ function greatCircleKm(a, b) {
   return radians * EARTH_R;
 }
 
-// Animate the globe rotating to centre on a given lon/lat, optionally zooming
-function spinTo(lon, lat, done, targetScale) {
+// Animate the globe rotating to centre on a given lon/lat
+function spinTo(lon, lat, done) {
   autoRotate = false;
   const r0 = projection.rotate();
-  const r1 = [-lon, -lat * 0.6, 0];
-  const s0 = projection.scale();
-  const s1 = targetScale !== undefined ? targetScale : s0;
+  const r1 = [-lon, -lat * 0.6, 0]; // tilt slightly less than full to keep view balanced
   const interp = d3.interpolate(r0, r1);
   const t0 = performance.now();
   const dur = 800;
@@ -1351,7 +1564,6 @@ function spinTo(lon, lat, done, targetScale) {
     const t = Math.min(1, (now - t0) / dur);
     const eased = d3.easeCubicInOut(t);
     projection.rotate(interp(eased));
-    projection.scale(s0 + (s1 - s0) * eased);
     refresh();
     if (t < 1) requestAnimationFrame(frame);
     else if (done) done();
@@ -1359,43 +1571,314 @@ function spinTo(lon, lat, done, targetScale) {
   requestAnimationFrame(frame);
 }
 
-function animateScale(target, done) {
-  const s0 = projection.scale();
-  const t0 = performance.now();
-  const dur = 500;
-  function frame(now) {
-    const t = Math.min(1, (now - t0) / dur);
-    const eased = d3.easeCubicInOut(t);
-    projection.scale(s0 + (target - s0) * eased);
-    refresh();
-    if (t < 1) requestAnimationFrame(frame);
-    else if (done) done();
+// =============================================================
+// HOME SCREEN — localStorage
+// =============================================================
+const LS_LEVELS = 'golfguessr_v1_levels';
+const LS_DAILY  = 'golfguessr_v1_daily';
+
+function getLevelSave()  { try { return JSON.parse(localStorage.getItem(LS_LEVELS) || '{}'); } catch { return {}; } }
+function setLevelSave(d) { try { localStorage.setItem(LS_LEVELS, JSON.stringify(d)); } catch {} }
+function getDailySave()  { try { return JSON.parse(localStorage.getItem(LS_DAILY)  || '{}'); } catch { return {}; } }
+function setDailySave(d) { try { localStorage.setItem(LS_DAILY,  JSON.stringify(d)); } catch {} }
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function scoreToStars(score) {
+  if (score >= MAX_TOTAL * 0.85) return 3;
+  if (score >= MAX_TOTAL * 0.60) return 2;
+  return 1;
+}
+function saveLevelResult(n, score) {
+  const all  = getLevelSave();
+  const key  = String(n);
+  const prev = all[key] || { best: 0, played: 0, stars: 0 };
+  all[key] = {
+    best:     Math.max(prev.best, score),
+    played:   (prev.played || 0) + 1,
+    lastDate: todayKey(),
+    stars:    Math.max(prev.stars || 0, scoreToStars(score))
+  };
+  setLevelSave(all);
+}
+function saveDailyResult(score) {
+  const data  = getDailySave();
+  const today = todayKey();
+  if ((data.scores || {})[today] !== undefined) return;
+  const scores = data.scores || {};
+  scores[today] = score;
+  const last = data.lastDate;
+  let streak = data.streak || 0;
+  if (last) {
+    const diff = Math.round((new Date(today) - new Date(last)) / 86400000);
+    streak = diff === 1 ? streak + 1 : 1;
+  } else { streak = 1; }
+  setDailySave({ scores, streak, lastDate: today });
+}
+
+// =============================================================
+// DAILY CHALLENGE — deterministic seeding
+// =============================================================
+function fnv32(str) {
+  let h = 0x811c9dc5 >>> 0;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h;
+}
+function xor32(seed) {
+  let s = (seed ^ 0) || 1;
+  return () => { s ^= s << 13; s ^= s >> 17; s ^= s << 5; return (s >>> 0) / 0x100000000; };
+}
+function getDailyLocations() {
+  const rng    = xor32(fnv32(todayKey()));
+  const byDiff = { easy: [], medium: [], hard: [] };
+  LOCATIONS.forEach(l => byDiff[locDifficulty(l)].push(l));
+  for (const k of Object.keys(byDiff)) byDiff[k].sort((a, b) => locId(a) < locId(b) ? -1 : 1);
+  const pick = [], used = new Set();
+  for (const d of DIFFICULTY_ORDER) {
+    const pool   = byDiff[d].filter(l => !used.has(locId(l)));
+    const chosen = pool[Math.floor(rng() * pool.length)];
+    pick.push(chosen); used.add(locId(chosen));
   }
-  requestAnimationFrame(frame);
+  return pick;
+}
+
+// =============================================================
+// HOME SCREEN — UI
+// =============================================================
+function showHome() {
+  document.getElementById('home-screen').style.display = 'flex';
+  document.getElementById('home-screen').classList.remove('hidden-view');
+  const gw = document.getElementById('globe-wrap');
+  gw.style.display = 'none';
+  gw.classList.add('hidden-view');
+  document.getElementById('dots-wrap').style.display   = 'none';
+  document.getElementById('score-block').style.display = 'none';
+  document.getElementById('home-nav').style.display    = 'flex';
+  renderDailyBanner();
+  renderLevelGrid();
+  renderStats();
+}
+function showGame() {
+  document.getElementById('home-screen').style.display = 'none';
+  document.getElementById('home-screen').classList.add('hidden-view');
+  const gw = document.getElementById('globe-wrap');
+  gw.style.display = '';
+  gw.classList.remove('hidden-view');
+  document.getElementById('dots-wrap').style.display   = '';
+  document.getElementById('score-block').style.display = '';
+  document.getElementById('home-nav').style.display    = 'none';
+  if (!globeReady) { globeReady = true; initGlobe(); }
+}
+function renderDailyBanner() {
+  const banner  = document.getElementById('daily-banner');
+  const today   = todayKey();
+  const data    = getDailySave();
+  const scores  = data.scores || {};
+  const played  = scores[today] !== undefined;
+  const streak  = data.streak || 0;
+  const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const streakHtml = streak > 1 ? `<div class="daily-streak">🔥 ${streak}-day streak</div>` : '';
+  if (played) {
+    banner.innerHTML = `
+      <div class="daily-icon">📅</div>
+      <div class="daily-info">
+        <div class="daily-date">${dateStr}</div>
+        <div class="daily-played">Played today · <b>${scores[today].toLocaleString()} pts</b></div>
+        ${streakHtml}
+      </div>`;
+  } else {
+    banner.innerHTML = `
+      <div class="daily-icon">📅</div>
+      <div class="daily-info">
+        <div class="daily-date">${dateStr}</div>
+        <div class="daily-sub">Daily Challenge</div>
+        ${streakHtml}
+      </div>
+      <button class="btn" id="daily-play-btn" style="flex-shrink:0">Play</button>`;
+    document.getElementById('daily-play-btn').addEventListener('click', startDailyChallenge);
+  }
+}
+function renderLevelGrid() {
+  const grid = document.getElementById('level-grid');
+  const save = getLevelSave();
+  grid.innerHTML = LEVEL_DATA.map(lv => {
+    const s    = save[String(lv.id)];
+    const done = s && s.played > 0;
+    const stars = done ? (s.stars || 1) : 0;
+    const starsHtml = done ? `<span class="level-stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</span>` : '';
+    const bestHtml  = done ? `<div class="level-best">Best: ${s.best.toLocaleString()}</div>` : `<div class="level-best"></div>`;
+    return `
+      <div class="level-cell">
+        <div class="level-circle${done ? ' completed' : ''}" data-level="${lv.id}">
+          <span class="level-num">${lv.id}</span>
+          ${starsHtml}
+        </div>
+        ${bestHtml}
+      </div>`;
+  }).join('');
+  grid.querySelectorAll('.level-circle').forEach(el =>
+    el.addEventListener('click', () => startLevel(+el.dataset.level))
+  );
+}
+function renderStats() {
+  const pane      = document.getElementById('tab-stats');
+  const save      = getLevelSave();
+  const daily     = getDailySave();
+  const completed = Object.values(save).filter(v => v.played > 0);
+  const totalBest = completed.reduce((s, v) => s + v.best, 0);
+  const avgPct    = completed.length
+    ? Math.round(completed.reduce((s, v) => s + v.best / MAX_TOTAL, 0) / completed.length * 100) : 0;
+  const stars  = completed.reduce((s, v) => s + (v.stars || 0), 0);
+  const streak = daily.streak || 0;
+  const played = completed.reduce((s, v) => s + v.played, 0);
+  pane.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">${played}</div>
+        <div class="stat-label">Levels Played</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${totalBest.toLocaleString()}</div>
+        <div class="stat-label">Total Best Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${avgPct}%</div>
+        <div class="stat-label">Avg Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${stars}<span style="font-size:.65em;color:var(--text-dim)">/60</span></div>
+        <div class="stat-label">Total Stars</div>
+      </div>
+      <div class="stat-card wide">
+        <div class="stat-value">🔥 ${streak}</div>
+        <div class="stat-label">Daily Streak</div>
+      </div>
+    </div>`;
+}
+
+// =============================================================
+// FIXED LEVEL + DAILY — game start
+// =============================================================
+function _launchQueue(locs) {
+  queue = locs;
+  currentIdx = 0; totalScore = 0; results = [];
+  document.getElementById('score-value').textContent = '0';
+  document.getElementById('summary').classList.remove('show');
+  hideRevealCard();
+  buildDots();
+  nextPrompt();
+}
+function startLevel(n) {
+  gameMode = 'level'; activeLevelNum = n;
+  showGame();
+  const def  = LEVEL_DATA[n - 1];
+  // When locs are filled they'll be locId strings; look them up
+  const resolved = def.locs.map(id => LOCATIONS.find(l => locId(l) === id)).filter(Boolean);
+  if (resolved.length === 5) { _launchQueue(resolved); return; }
+  // Stub fallback: random 5 until levels are populated
+  const allByDiff = { easy: [], medium: [], hard: [] };
+  LOCATIONS.forEach(l => allByDiff[locDifficulty(l)].push(l));
+  const pick = [], used = new Set();
+  for (const d of DIFFICULTY_ORDER) {
+    const pool = allByDiff[d].filter(l => !used.has(locId(l)));
+    const choice = pool[Math.floor(Math.random() * pool.length)];
+    pick.push(choice); used.add(locId(choice));
+  }
+  _launchQueue(pick);
+}
+function startDailyChallenge() {
+  gameMode = 'daily'; activeLevelNum = null;
+  showGame();
+  _launchQueue(getDailyLocations());
+}
+
+// =============================================================
+// SESSION-BASED SEEN TRACKING
+// =============================================================
+const SEEN_KEY = 'golfguessr_v1_seen';
+// Maps internal difficulty codes → storage tier keys
+const DIFF_TO_TIER = { easy: 'easy', medium: 'dedicated', hard: 'obscure' };
+
+// Stable ID based on coordinates — survives name edits
+const locId = (loc) => `${loc.lat}_${loc.lon}`;
+
+function loadSeen() {
+  try {
+    const s = JSON.parse(localStorage.getItem(SEEN_KEY) || '{}');
+    return {
+      easy:      new Set(s.easy      || []),
+      dedicated: new Set(s.dedicated || []),
+      obscure:   new Set(s.obscure   || [])
+    };
+  } catch (e) {
+    return { easy: new Set(), dedicated: new Set(), obscure: new Set() };
+  }
+}
+
+function saveSeen(seen) {
+  try {
+    localStorage.setItem(SEEN_KEY, JSON.stringify({
+      easy:      [...seen.easy],
+      dedicated: [...seen.dedicated],
+      obscure:   [...seen.obscure]
+    }));
+  } catch (e) {}
 }
 
 // =============================================================
 // UI HOOKS
 // =============================================================
 function startRound() {
-  // Bucket by difficulty, then draw one location per slot in DIFFICULTY_ORDER.
-  // Vary categories where possible so a round doesn't feel like all players or all courses.
-  const byDiff = { easy: [], medium: [], hard: [] };
-  LOCATIONS.forEach(l => byDiff[locDifficulty(l)].push(l));
+  gameMode = 'random'; activeLevelNum = null;
+  showGame();
+  // Bucket all locations by difficulty.
+  const allByDiff = { easy: [], medium: [], hard: [] };
+  LOCATIONS.forEach(l => allByDiff[locDifficulty(l)].push(l));
+
+  // Load seen state; reset any tier that's been fully cycled.
+  const seen = loadSeen();
+  for (const [diff, tierKey] of Object.entries(DIFF_TO_TIER)) {
+    const all = allByDiff[diff];
+    if (all.length > 0 && all.every(l => seen[tierKey].has(locId(l)))) {
+      seen[tierKey].clear();
+    }
+  }
+
+  // Build per-tier unseen pools.
+  const byDiff = {};
+  for (const diff of ['easy', 'medium', 'hard']) {
+    const tk = DIFF_TO_TIER[diff];
+    byDiff[diff] = allByDiff[diff].filter(l => !seen[tk].has(locId(l)));
+  }
+
+  // Pick one location per slot, preferring category variety.
   const pick = [];
   const usedCats = {};
   for (const d of DIFFICULTY_ORDER) {
     let pool = byDiff[d].filter(l => !pick.includes(l));
     if (!pool.length) {
-      // Difficulty bucket exhausted — fall back to any difficulty.
+      // Tier ran dry mid-round — reset it and draw fresh.
+      seen[DIFF_TO_TIER[d]].clear();
+      pool = allByDiff[d].filter(l => !pick.includes(l));
+    }
+    if (!pool.length) {
+      // Absolute fallback: tier has fewer locations than needed slots.
       pool = LOCATIONS.filter(l => !pick.includes(l));
     }
-    // Prefer locations whose category hasn't been used yet this round.
     const fresh = pool.filter(l => !usedCats[l.category]);
     const choice = (fresh.length ? fresh : pool)[Math.floor(Math.random() * (fresh.length ? fresh.length : pool.length))];
     pick.push(choice);
     usedCats[choice.category] = true;
   }
+
+  // Mark all 5 picks as seen before the round starts (survives tab refresh).
+  for (const loc of pick) {
+    seen[DIFF_TO_TIER[locDifficulty(loc)]].add(locId(loc));
+  }
+  saveSeen(seen);
+
   queue = pick; // already in difficulty order — do NOT shuffle
   currentIdx = 0;
   totalScore = 0;
@@ -1420,17 +1903,22 @@ function nextPrompt() {
   document.getElementById('cat-icon').textContent = cat.icon;
   document.getElementById('cat-label').textContent = cat.label;
   document.getElementById('target-name').textContent = loc.name;
+  document.getElementById('prompt-trivia').textContent = loc.trivia || '';
   const finalTag = (currentIdx === ROUND_SIZE - 1) ? ' · final hole' : '';
   document.getElementById('prompt-hint').textContent =
     `Round ${currentIdx + 1} of ${ROUND_SIZE} · up to ${max} pts${finalTag}`;
 
   const diffBadge = document.getElementById('diff-badge');
-  diffBadge.textContent = diff.toUpperCase();
-  diffBadge.classList.remove('hidden', 'easy', 'medium', 'hard');
-  diffBadge.classList.add(diff);
-  diffBadge.style.animation = 'none';
-  void diffBadge.offsetWidth;
-  diffBadge.style.animation = '';
+  if (gameMode === 'random') {
+    diffBadge.textContent = diff.toUpperCase();
+    diffBadge.classList.remove('hidden', 'easy', 'medium', 'hard');
+    diffBadge.classList.add(diff);
+    diffBadge.style.animation = 'none';
+    void diffBadge.offsetWidth;
+    diffBadge.style.animation = '';
+  } else {
+    diffBadge.classList.add('hidden');
+  }
 
   const multBadge = document.getElementById('mult-badge');
   if (mult > 1) {
@@ -1485,7 +1973,6 @@ function showRevealCard(loc, dist, points, max) {
   const ptsEl = document.getElementById('reveal-points');
   ptsEl.innerHTML = `+${points}<span class="points-max">/ ${max}</span>`;
   document.getElementById('reveal-distance').textContent = formatDist(dist) + " away";
-  document.getElementById('reveal-trivia').textContent = loc.trivia;
   card.classList.add('show');
 }
 function hideRevealCard() {
@@ -1497,12 +1984,11 @@ function showSummary() {
   list.innerHTML = '';
   results.forEach((r, i) => {
     const li = document.createElement('li');
-    const diff = diffFor(i);
     li.innerHTML = `
       <div class="sum-icon">${CATS[r.loc.category].icon}</div>
       <div class="sum-info">
         <b>${escapeHtml(r.loc.name)}</b>
-        <span>${escapeHtml(r.loc.country)} · ${diff}</span>
+        <span>${escapeHtml(r.loc.country)}</span>
       </div>
       <div class="sum-pts">
         <div class="sum-pts-val">+${r.points}<span class="points-max">/ ${r.max}</span></div>
@@ -1512,17 +1998,76 @@ function showSummary() {
   });
   document.getElementById('summary-total').textContent = totalScore.toLocaleString();
 
-  // Personal best
-  let pb = parseInt(localStorage.getItem(PB_KEY) || '0', 10);
-  let pbLine = document.getElementById('summary-pb');
-  if (totalScore > pb) {
-    localStorage.setItem(PB_KEY, totalScore);
-    pbLine.innerHTML = `Personal best: <b>${totalScore.toLocaleString()}</b> <span class="new-pb">New!</span>`;
+  const titleEl   = document.getElementById('summary-title');
+  const pbLineEl  = document.getElementById('summary-pb');
+  const actionsEl = document.getElementById('summary-actions');
+
+  if (gameMode === 'level') {
+    saveLevelResult(activeLevelNum, totalScore);
+    const s     = getLevelSave()[String(activeLevelNum)];
+    const stars = scoreToStars(totalScore);
+    titleEl.textContent = `Level ${activeLevelNum} Complete`;
+    pbLineEl.innerHTML  = `Best: <b>${s.best.toLocaleString()}</b> · ${'★'.repeat(stars)}${'☆'.repeat(3-stars)}`;
+    actionsEl.innerHTML = `
+      <button class="btn ghost" id="sum-home">← Home</button>
+      <button class="btn" id="sum-replay">Play Again</button>`;
+    document.getElementById('sum-home').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      showHome();
+    });
+    document.getElementById('sum-replay').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      startLevel(activeLevelNum);
+    });
+  } else if (gameMode === 'daily') {
+    saveDailyResult(totalScore);
+    const data = getDailySave();
+    titleEl.textContent = 'Daily Challenge Complete';
+    pbLineEl.innerHTML  = `Score: <b>${totalScore.toLocaleString()}</b>${data.streak > 1 ? ` · 🔥 ${data.streak}-day streak` : ''}`;
+    actionsEl.innerHTML = `<button class="btn" id="sum-home">← Home</button>`;
+    document.getElementById('sum-home').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      showHome();
+    });
   } else {
-    pbLine.innerHTML = `Personal best: <b>${pb.toLocaleString()}</b>`;
+    // Random / practice mode
+    titleEl.textContent = 'Round Complete';
+    let pb = parseInt(localStorage.getItem(PB_KEY) || '0', 10);
+    if (totalScore > pb) {
+      localStorage.setItem(PB_KEY, totalScore);
+      pbLineEl.innerHTML = `Personal best: <b>${totalScore.toLocaleString()}</b> <span class="new-pb">New!</span>`;
+    } else {
+      pbLineEl.innerHTML = `Personal best: <b>${pb.toLocaleString()}</b>`;
+    }
+    actionsEl.innerHTML = `
+      <button class="btn ghost" id="sum-home">← Home</button>
+      <button class="btn ghost" id="sum-share">Copy Result</button>
+      <button class="btn" id="sum-replay">Play Again</button>`;
+    document.getElementById('sum-home').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      showHome();
+    });
+    document.getElementById('sum-replay').addEventListener('click', startRound);
+    document.getElementById('sum-share').addEventListener('click', async function () {
+      const lines = results.map((r, i) => {
+        const buckets = ['🔴','🟠','🟡','🟢','💚'];
+        const pct = r.max > 0 ? r.points / r.max : 0;
+        const idx = Math.min(buckets.length - 1, Math.floor(pct * buckets.length));
+        return `${buckets[idx]} ${r.points}/${r.max}  ${r.loc.name}`;
+      });
+      const text = `Closest to the Pin · ${totalScore}/${MAX_TOTAL}\n` + lines.join('\n') + `\n\nPlay: `;
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = this.textContent;
+        this.textContent = 'Copied!';
+        setTimeout(() => this.textContent = orig, 1600);
+      } catch {
+        this.textContent = 'Copy failed';
+        setTimeout(() => this.textContent = 'Copy Result', 1600);
+      }
+    });
   }
 
-  // Reveal all pins on the globe
   redrawMarkers();
   hideRevealCard();
   document.getElementById('summary').classList.add('show');
@@ -1540,9 +2085,10 @@ function shuffle(arr) {
   return a;
 }
 function formatDist(km) {
-  if (km < 10)   return km.toFixed(1) + " km";
-  if (km < 1000) return Math.round(km) + " km";
-  return (km / 1000).toFixed(1) + "k km";
+  const mi = km * 0.621371;
+  if (mi < 10)   return mi.toFixed(1) + " mi";
+  if (mi < 1000) return Math.round(mi) + " mi";
+  return (mi / 1000).toFixed(1) + "k mi";
 }
 function debounce(fn, ms) {
   let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
@@ -1555,47 +2101,24 @@ function escapeHtml(s) {
 // BOOT
 // =============================================================
 window.addEventListener('DOMContentLoaded', () => {
-  initGlobe();
-
-  // Show personal best on splash
-  const pb = parseInt(localStorage.getItem(PB_KEY) || '0', 10);
-  if (pb > 0) {
-    document.getElementById('splash-pb').innerHTML = `Personal best: <b>${pb.toLocaleString()}</b>`;
-  }
-
-  document.getElementById('splash-start').addEventListener('click', () => {
-    document.getElementById('splash').classList.add('hide');
-    startRound();
-  });
+  showHome();
 
   document.getElementById('reveal-next').addEventListener('click', () => {
     hideRevealCard();
     currentIdx++;
-    animateScale(scale0, () => setTimeout(nextPrompt, 50));
+    setTimeout(nextPrompt, 250);
   });
 
-  document.getElementById('summary-replay').addEventListener('click', () => {
-    startRound();
-  });
+  document.getElementById('btn-practice').addEventListener('click', startRound);
 
-  document.getElementById('summary-share').addEventListener('click', async () => {
-    const lines = results.map((r, i) => {
-      const buckets = ['🔴','🟠','🟡','🟢','💚'];
-      const pct = r.max > 0 ? r.points / r.max : 0;
-      const idx = Math.min(buckets.length-1, Math.floor(pct * buckets.length));
-      return `${buckets[idx]} ${r.points}/${r.max}  ${r.loc.name}`;
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(p => p.classList.add('hidden'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+      if (btn.dataset.tab === 'stats') renderStats();
     });
-    const text = `Closest to the Pin · ${totalScore}/${MAX_TOTAL}\n` + lines.join('\n') + `\n\nPlay: `;
-    const btn = document.getElementById('summary-share');
-    try {
-      await navigator.clipboard.writeText(text);
-      const orig = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(() => btn.textContent = orig, 1600);
-    } catch (e) {
-      btn.textContent = 'Copy failed';
-      setTimeout(() => btn.textContent = 'Copy Result', 1600);
-    }
   });
 });
 </script>
