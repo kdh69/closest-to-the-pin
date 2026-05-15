@@ -159,7 +159,7 @@
     padding: 14px 22px 14px 14px;
     border-radius: 16px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 14px;
     min-width: 340px;
     max-width: calc(100vw - 32px);
@@ -240,6 +240,15 @@
     font-size: 0.78rem;
     color: var(--text-dim);
     margin-top: 2px;
+  }
+  .prompt-trivia {
+    font-size: 0.82rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
   }
 
   /* === REVEAL CARD === */
@@ -583,6 +592,151 @@
     .splash h1 { font-size: 1.6rem; }
     .total { font-size: 2.6rem; }
   }
+
+  /* === HOME SCREEN === */
+  .hidden-view { display: none !important; }
+
+  .home-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Daily banner */
+  .daily-banner {
+    margin: 14px 16px 0;
+    background: var(--panel);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .daily-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--gold-soft);
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .daily-info { flex: 1; min-width: 0; }
+  .daily-date { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; line-height: 1.2; }
+  .daily-sub { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
+  .daily-played { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+  .daily-played b { color: var(--gold); font-weight: 700; }
+  .daily-streak { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    margin: 14px 16px 0;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
+    letter-spacing: -0.01em;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* Tab panes */
+  .tab-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .tab-content.hidden { display: none; }
+
+  /* Level grid */
+  .level-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    padding: 18px 16px 24px;
+  }
+  .level-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .level-circle {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    gap: 2px;
+  }
+  .level-circle:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  .level-circle:active { transform: scale(0.95); }
+  .level-circle.completed {
+    background: var(--good);
+    border-color: var(--good);
+    color: var(--bg-0);
+  }
+  .level-num { font-weight: 800; font-size: 1.05rem; line-height: 1; }
+  .level-stars { font-size: 0.58rem; line-height: 1; }
+  .level-best { font-size: 0.65rem; color: var(--text-dim); text-align: center; min-height: 1em; }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+  .stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-card.wide { grid-column: 1 / -1; }
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  @media (max-width: 640px) {
+    .daily-banner { margin: 10px 12px 0; padding: 12px 14px; }
+    .tab-bar { margin: 10px 12px 0; }
+    .level-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 12px 12px 20px; }
+    .level-circle { width: 60px; height: 60px; }
+    .stats-grid { padding: 12px; gap: 10px; }
+  }
 </style>
 </head>
 <body>
@@ -592,16 +746,34 @@
       <div class="brand-mark">⛳</div>
       <div class="brand-text">Closest to the Pin</div>
     </div>
-    <div class="dots-wrap">
+    <div class="dots-wrap" id="dots-wrap">
       <div class="dots" id="dots"></div>
     </div>
-    <div class="score-block">
+    <div class="score-block" id="score-block">
       <div class="score-label">Score</div>
       <div class="score-value" id="score-value">0</div>
     </div>
+    <div id="home-nav" style="display:none">
+      <button class="btn ghost" id="btn-practice" style="padding:7px 16px;font-size:0.82rem">Practice ▶</button>
+    </div>
   </div>
 
-  <div class="globe-wrap" id="globe-wrap">
+  <div id="home-screen" class="home-screen">
+    <div class="daily-banner" id="daily-banner">
+      <div class="daily-icon">📅</div>
+      <div class="daily-info"><div class="daily-date">Loading…</div></div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="levels">Levels</button>
+      <button class="tab-btn" data-tab="stats">Stats</button>
+    </div>
+    <div class="tab-content" id="tab-levels">
+      <div class="level-grid" id="level-grid"></div>
+    </div>
+    <div class="tab-content hidden" id="tab-stats"></div>
+  </div>
+
+  <div class="globe-wrap hidden-view" id="globe-wrap">
     <svg id="globe"></svg>
 
     <div class="legend" id="legend">Drag to spin · scroll to zoom · tap to guess</div>
@@ -616,6 +788,7 @@
         </div>
         <div class="target-name" id="target-name">—</div>
         <div class="prompt-hint" id="prompt-hint">Tap where you think it is</div>
+        <div class="prompt-trivia" id="prompt-trivia"></div>
       </div>
     </div>
 
@@ -630,7 +803,6 @@
           <div class="reveal-distance" id="reveal-distance">— mi away</div>
         </div>
       </div>
-      <div class="reveal-trivia" id="reveal-trivia">—</div>
       <div class="reveal-actions">
         <button class="btn" id="reveal-next">Next →</button>
       </div>
@@ -646,24 +818,13 @@
           <div class="pb-line" id="summary-pb">Personal best: <b>0</b></div>
         </div>
         <ul class="sum-list" id="summary-list"></ul>
-        <div class="summary-actions">
+        <div class="summary-actions" id="summary-actions">
           <button class="btn ghost" id="summary-share">Copy Result</button>
           <button class="btn" id="summary-replay">Play Again</button>
         </div>
       </div>
     </div>
 
-    <div class="splash" id="splash">
-      <div class="splash-inner">
-        <div class="splash-logo">⛳</div>
-        <h1>Closest to the Pin</h1>
-        <p>Find <strong>famous courses</strong>, <strong>championship venues</strong>, <strong>player birthplaces</strong>, <strong>golf landmarks</strong>, and <strong>architect origins</strong> hidden on a spinning globe.</p>
-        <p style="font-size:0.85rem;">Five rounds — two easy (100 pts), one medium (200 pts), two hard (300 pts). Closer = more points. Up to <b>1,000 points</b>.</p>
-        <p style="font-size:0.78rem; color: var(--text-dim);">Drag to rotate · scroll/pinch to zoom · tap to drop your pin.</p>
-        <button class="btn" id="splash-start">Tee Off</button>
-        <div class="splash-pb" id="splash-pb"></div>
-      </div>
-    </div>
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
@@ -955,6 +1116,24 @@ function locDifficulty(loc) {
   return 'easy';
 }
 
+// =============================================================
+// GAME MODE + LEVEL DATA
+// =============================================================
+let gameMode = 'random';   // 'random' | 'daily' | 'level'
+let activeLevelNum = null;
+let globeReady = false;
+
+// Stub — locations filled in next prompt
+const LEVEL_DATA = [
+  { id:  1, locs: [] }, { id:  2, locs: [] }, { id:  3, locs: [] },
+  { id:  4, locs: [] }, { id:  5, locs: [] }, { id:  6, locs: [] },
+  { id:  7, locs: [] }, { id:  8, locs: [] }, { id:  9, locs: [] },
+  { id: 10, locs: [] }, { id: 11, locs: [] }, { id: 12, locs: [] },
+  { id: 13, locs: [] }, { id: 14, locs: [] }, { id: 15, locs: [] },
+  { id: 16, locs: [] }, { id: 17, locs: [] }, { id: 18, locs: [] },
+  { id: 19, locs: [] }, { id: 20, locs: [] }
+];
+
 let projection, path, svg, countriesG, staticG, markersG, sphereSel;
 let width, height, scale0;
 let queue = [];
@@ -1078,31 +1257,69 @@ function initGlobe() {
   markersG = svg.append('g').attr('class', 'markers');
 
   // === Interaction ===
+  const activePointers = new Map(); // pointerId → [x, y]
+  let pinchStartDist = null;
+  let pinchStartScale = null;
+  let wasPinching = false;
   let dragStart = null;
   let dragMoved = false;
 
   svg.on('pointerdown', function (event) {
-    if (event.button !== undefined && event.button !== 0) return;
     event.preventDefault();
     this.setPointerCapture(event.pointerId);
     const [x, y] = d3.pointer(event, this);
+    activePointers.set(event.pointerId, [x, y]);
+    autoRotate = false;
+    lastInteract = performance.now();
+
+    if (activePointers.size === 2) {
+      // Second finger — enter pinch mode, cancel any ongoing drag
+      const pts = [...activePointers.values()];
+      pinchStartDist = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]);
+      pinchStartScale = projection.scale();
+      wasPinching = true;
+      dragStart = null;
+      svg.classed('dragging', false);
+      return;
+    }
+    if (activePointers.size > 2) return;
+
+    // Single pointer — rotate/drag mode (ignore non-primary mouse buttons)
+    if (event.button !== undefined && event.button > 0) return;
     const inv = projection.invert([x, y]);
     if (!inv) return;
     dragStart = {
       v0: versor.cartesian(inv),
       r0: projection.rotate(),
       q0: versor.fromAngles(projection.rotate()),
-      x, y, t: performance.now()
+      x, y
     };
     dragMoved = false;
-    autoRotate = false;
     svg.classed('dragging', true);
-    lastInteract = performance.now();
   });
 
   svg.on('pointermove', function (event) {
-    if (!dragStart) return;
     const [x, y] = d3.pointer(event, this);
+    if (activePointers.has(event.pointerId)) {
+      activePointers.set(event.pointerId, [x, y]);
+    }
+    lastInteract = performance.now();
+
+    // Pinch zoom
+    if (activePointers.size >= 2 && pinchStartDist !== null) {
+      const pts = [...activePointers.values()];
+      const dist = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]);
+      const newScale = Math.max(
+        scale0 * 0.55,
+        Math.min(scale0 * 6.5, pinchStartScale * (dist / pinchStartDist))
+      );
+      projection.scale(newScale);
+      refresh();
+      return;
+    }
+
+    // Single-pointer rotate
+    if (!dragStart) return;
     if (!dragMoved) {
       if (Math.abs(x - dragStart.x) + Math.abs(y - dragStart.y) < 8) return;
       dragMoved = true;
@@ -1112,19 +1329,32 @@ function initGlobe() {
     const v1 = versor.cartesian(inv);
     const q1 = versor.multiply(dragStart.q0, versor.delta(dragStart.v0, v1));
     const r  = versor.toAngles(q1);
-    // clamp roll
     r[2] = 0;
     projection.rotate(r);
     refresh();
-    lastInteract = performance.now();
   });
 
   function endDrag(event) {
+    activePointers.delete(event.pointerId);
+
+    if (activePointers.size < 2) {
+      pinchStartDist = null;
+      pinchStartScale = null;
+    }
+
+    // Lift after pinch — don't register as a tap
+    if (activePointers.size === 0 && wasPinching) {
+      wasPinching = false;
+      dragStart = null;
+      svg.classed('dragging', false);
+      return;
+    }
+
     if (!dragStart) return;
     const wasDrag = dragMoved;
     dragStart = null;
     svg.classed('dragging', false);
-    if (!wasDrag && acceptingGuesses) {
+    if (!wasDrag && acceptingGuesses && activePointers.size === 0) {
       const [x, y] = d3.pointer(event, svg.node());
       handleGuess(x, y);
     }
@@ -1139,7 +1369,7 @@ function initGlobe() {
     autoRotate = false;
     const delta = -event.deltaY;
     const factor = Math.exp(delta * 0.001);
-    const newScale = Math.max(scale0 * 0.55, Math.min(scale0 * 3.2, projection.scale() * factor));
+    const newScale = Math.max(scale0 * 0.55, Math.min(scale0 * 6.5, projection.scale() * factor));
     projection.scale(newScale);
     refresh();
     lastInteract = performance.now();
@@ -1155,6 +1385,7 @@ function initGlobe() {
 }
 
 function onResize() {
+  if (!globeReady) return;
   const wrap = document.getElementById('globe-wrap');
   width = wrap.clientWidth;
   height = wrap.clientHeight;
@@ -1299,6 +1530,223 @@ function spinTo(lon, lat, done) {
 }
 
 // =============================================================
+// HOME SCREEN — localStorage
+// =============================================================
+const LS_LEVELS = 'golfguessr_v1_levels';
+const LS_DAILY  = 'golfguessr_v1_daily';
+
+function getLevelSave()  { try { return JSON.parse(localStorage.getItem(LS_LEVELS) || '{}'); } catch { return {}; } }
+function setLevelSave(d) { try { localStorage.setItem(LS_LEVELS, JSON.stringify(d)); } catch {} }
+function getDailySave()  { try { return JSON.parse(localStorage.getItem(LS_DAILY)  || '{}'); } catch { return {}; } }
+function setDailySave(d) { try { localStorage.setItem(LS_DAILY,  JSON.stringify(d)); } catch {} }
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function scoreToStars(score) {
+  if (score >= MAX_TOTAL * 0.85) return 3;
+  if (score >= MAX_TOTAL * 0.60) return 2;
+  return 1;
+}
+function saveLevelResult(n, score) {
+  const all  = getLevelSave();
+  const key  = String(n);
+  const prev = all[key] || { best: 0, played: 0, stars: 0 };
+  all[key] = {
+    best:     Math.max(prev.best, score),
+    played:   (prev.played || 0) + 1,
+    lastDate: todayKey(),
+    stars:    Math.max(prev.stars || 0, scoreToStars(score))
+  };
+  setLevelSave(all);
+}
+function saveDailyResult(score) {
+  const data  = getDailySave();
+  const today = todayKey();
+  if ((data.scores || {})[today] !== undefined) return;
+  const scores = data.scores || {};
+  scores[today] = score;
+  const last = data.lastDate;
+  let streak = data.streak || 0;
+  if (last) {
+    const diff = Math.round((new Date(today) - new Date(last)) / 86400000);
+    streak = diff === 1 ? streak + 1 : 1;
+  } else { streak = 1; }
+  setDailySave({ scores, streak, lastDate: today });
+}
+
+// =============================================================
+// DAILY CHALLENGE — deterministic seeding
+// =============================================================
+function fnv32(str) {
+  let h = 0x811c9dc5 >>> 0;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h;
+}
+function xor32(seed) {
+  let s = (seed ^ 0) || 1;
+  return () => { s ^= s << 13; s ^= s >> 17; s ^= s << 5; return (s >>> 0) / 0x100000000; };
+}
+function getDailyLocations() {
+  const rng    = xor32(fnv32(todayKey()));
+  const byDiff = { easy: [], medium: [], hard: [] };
+  LOCATIONS.forEach(l => byDiff[locDifficulty(l)].push(l));
+  for (const k of Object.keys(byDiff)) byDiff[k].sort((a, b) => locId(a) < locId(b) ? -1 : 1);
+  const pick = [], used = new Set();
+  for (const d of DIFFICULTY_ORDER) {
+    const pool   = byDiff[d].filter(l => !used.has(locId(l)));
+    const chosen = pool[Math.floor(rng() * pool.length)];
+    pick.push(chosen); used.add(locId(chosen));
+  }
+  return pick;
+}
+
+// =============================================================
+// HOME SCREEN — UI
+// =============================================================
+function showHome() {
+  document.getElementById('home-screen').classList.remove('hidden-view');
+  document.getElementById('globe-wrap').classList.add('hidden-view');
+  document.getElementById('dots-wrap').style.display   = 'none';
+  document.getElementById('score-block').style.display = 'none';
+  document.getElementById('home-nav').style.display    = 'flex';
+  renderDailyBanner();
+  renderLevelGrid();
+  renderStats();
+}
+function showGame() {
+  document.getElementById('home-screen').classList.add('hidden-view');
+  document.getElementById('globe-wrap').classList.remove('hidden-view');
+  document.getElementById('dots-wrap').style.display   = '';
+  document.getElementById('score-block').style.display = '';
+  document.getElementById('home-nav').style.display    = 'none';
+  if (!globeReady) { globeReady = true; initGlobe(); }
+}
+function renderDailyBanner() {
+  const banner  = document.getElementById('daily-banner');
+  const today   = todayKey();
+  const data    = getDailySave();
+  const scores  = data.scores || {};
+  const played  = scores[today] !== undefined;
+  const streak  = data.streak || 0;
+  const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const streakHtml = streak > 1 ? `<div class="daily-streak">🔥 ${streak}-day streak</div>` : '';
+  if (played) {
+    banner.innerHTML = `
+      <div class="daily-icon">📅</div>
+      <div class="daily-info">
+        <div class="daily-date">${dateStr}</div>
+        <div class="daily-played">Played today · <b>${scores[today].toLocaleString()} pts</b></div>
+        ${streakHtml}
+      </div>`;
+  } else {
+    banner.innerHTML = `
+      <div class="daily-icon">📅</div>
+      <div class="daily-info">
+        <div class="daily-date">${dateStr}</div>
+        <div class="daily-sub">Daily Challenge</div>
+        ${streakHtml}
+      </div>
+      <button class="btn" id="daily-play-btn" style="flex-shrink:0">Play</button>`;
+    document.getElementById('daily-play-btn').addEventListener('click', startDailyChallenge);
+  }
+}
+function renderLevelGrid() {
+  const grid = document.getElementById('level-grid');
+  const save = getLevelSave();
+  grid.innerHTML = LEVEL_DATA.map(lv => {
+    const s    = save[String(lv.id)];
+    const done = s && s.played > 0;
+    const stars = done ? (s.stars || 1) : 0;
+    const starsHtml = done ? `<span class="level-stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</span>` : '';
+    const bestHtml  = done ? `<div class="level-best">Best: ${s.best.toLocaleString()}</div>` : `<div class="level-best"></div>`;
+    return `
+      <div class="level-cell">
+        <div class="level-circle${done ? ' completed' : ''}" data-level="${lv.id}">
+          <span class="level-num">${lv.id}</span>
+          ${starsHtml}
+        </div>
+        ${bestHtml}
+      </div>`;
+  }).join('');
+  grid.querySelectorAll('.level-circle').forEach(el =>
+    el.addEventListener('click', () => startLevel(+el.dataset.level))
+  );
+}
+function renderStats() {
+  const pane      = document.getElementById('tab-stats');
+  const save      = getLevelSave();
+  const daily     = getDailySave();
+  const completed = Object.values(save).filter(v => v.played > 0);
+  const totalBest = completed.reduce((s, v) => s + v.best, 0);
+  const avgPct    = completed.length
+    ? Math.round(completed.reduce((s, v) => s + v.best / MAX_TOTAL, 0) / completed.length * 100) : 0;
+  const stars  = completed.reduce((s, v) => s + (v.stars || 0), 0);
+  const streak = daily.streak || 0;
+  const played = completed.reduce((s, v) => s + v.played, 0);
+  pane.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">${played}</div>
+        <div class="stat-label">Levels Played</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${totalBest.toLocaleString()}</div>
+        <div class="stat-label">Total Best Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${avgPct}%</div>
+        <div class="stat-label">Avg Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${stars}<span style="font-size:.65em;color:var(--text-dim)">/60</span></div>
+        <div class="stat-label">Total Stars</div>
+      </div>
+      <div class="stat-card wide">
+        <div class="stat-value">🔥 ${streak}</div>
+        <div class="stat-label">Daily Streak</div>
+      </div>
+    </div>`;
+}
+
+// =============================================================
+// FIXED LEVEL + DAILY — game start
+// =============================================================
+function _launchQueue(locs) {
+  queue = locs;
+  currentIdx = 0; totalScore = 0; results = [];
+  document.getElementById('score-value').textContent = '0';
+  document.getElementById('summary').classList.remove('show');
+  hideRevealCard();
+  buildDots();
+  nextPrompt();
+}
+function startLevel(n) {
+  gameMode = 'level'; activeLevelNum = n;
+  showGame();
+  const def  = LEVEL_DATA[n - 1];
+  // When locs are filled they'll be locId strings; look them up
+  const resolved = def.locs.map(id => LOCATIONS.find(l => locId(l) === id)).filter(Boolean);
+  if (resolved.length === 5) { _launchQueue(resolved); return; }
+  // Stub fallback: random 5 until levels are populated
+  const allByDiff = { easy: [], medium: [], hard: [] };
+  LOCATIONS.forEach(l => allByDiff[locDifficulty(l)].push(l));
+  const pick = [], used = new Set();
+  for (const d of DIFFICULTY_ORDER) {
+    const pool = allByDiff[d].filter(l => !used.has(locId(l)));
+    const choice = pool[Math.floor(Math.random() * pool.length)];
+    pick.push(choice); used.add(locId(choice));
+  }
+  _launchQueue(pick);
+}
+function startDailyChallenge() {
+  gameMode = 'daily'; activeLevelNum = null;
+  showGame();
+  _launchQueue(getDailyLocations());
+}
+
+// =============================================================
 // SESSION-BASED SEEN TRACKING
 // =============================================================
 const SEEN_KEY = 'golfguessr_v1_seen';
@@ -1335,6 +1783,8 @@ function saveSeen(seen) {
 // UI HOOKS
 // =============================================================
 function startRound() {
+  gameMode = 'random'; activeLevelNum = null;
+  showGame();
   // Bucket all locations by difficulty.
   const allByDiff = { easy: [], medium: [], hard: [] };
   LOCATIONS.forEach(l => allByDiff[locDifficulty(l)].push(l));
@@ -1405,17 +1855,22 @@ function nextPrompt() {
   document.getElementById('cat-icon').textContent = cat.icon;
   document.getElementById('cat-label').textContent = cat.label;
   document.getElementById('target-name').textContent = loc.name;
+  document.getElementById('prompt-trivia').textContent = loc.trivia || '';
   const finalTag = (currentIdx === ROUND_SIZE - 1) ? ' · final hole' : '';
   document.getElementById('prompt-hint').textContent =
     `Round ${currentIdx + 1} of ${ROUND_SIZE} · up to ${max} pts${finalTag}`;
 
   const diffBadge = document.getElementById('diff-badge');
-  diffBadge.textContent = diff.toUpperCase();
-  diffBadge.classList.remove('hidden', 'easy', 'medium', 'hard');
-  diffBadge.classList.add(diff);
-  diffBadge.style.animation = 'none';
-  void diffBadge.offsetWidth;
-  diffBadge.style.animation = '';
+  if (gameMode === 'random') {
+    diffBadge.textContent = diff.toUpperCase();
+    diffBadge.classList.remove('hidden', 'easy', 'medium', 'hard');
+    diffBadge.classList.add(diff);
+    diffBadge.style.animation = 'none';
+    void diffBadge.offsetWidth;
+    diffBadge.style.animation = '';
+  } else {
+    diffBadge.classList.add('hidden');
+  }
 
   const multBadge = document.getElementById('mult-badge');
   if (mult > 1) {
@@ -1470,7 +1925,6 @@ function showRevealCard(loc, dist, points, max) {
   const ptsEl = document.getElementById('reveal-points');
   ptsEl.innerHTML = `+${points}<span class="points-max">/ ${max}</span>`;
   document.getElementById('reveal-distance').textContent = formatDist(dist) + " away";
-  document.getElementById('reveal-trivia').textContent = loc.trivia;
   card.classList.add('show');
 }
 function hideRevealCard() {
@@ -1482,12 +1936,11 @@ function showSummary() {
   list.innerHTML = '';
   results.forEach((r, i) => {
     const li = document.createElement('li');
-    const diff = diffFor(i);
     li.innerHTML = `
       <div class="sum-icon">${CATS[r.loc.category].icon}</div>
       <div class="sum-info">
         <b>${escapeHtml(r.loc.name)}</b>
-        <span>${escapeHtml(r.loc.country)} · ${diff}</span>
+        <span>${escapeHtml(r.loc.country)}</span>
       </div>
       <div class="sum-pts">
         <div class="sum-pts-val">+${r.points}<span class="points-max">/ ${r.max}</span></div>
@@ -1497,17 +1950,71 @@ function showSummary() {
   });
   document.getElementById('summary-total').textContent = totalScore.toLocaleString();
 
-  // Personal best
-  let pb = parseInt(localStorage.getItem(PB_KEY) || '0', 10);
-  let pbLine = document.getElementById('summary-pb');
-  if (totalScore > pb) {
-    localStorage.setItem(PB_KEY, totalScore);
-    pbLine.innerHTML = `Personal best: <b>${totalScore.toLocaleString()}</b> <span class="new-pb">New!</span>`;
+  const titleEl   = document.getElementById('summary-title');
+  const pbLineEl  = document.getElementById('summary-pb');
+  const actionsEl = document.getElementById('summary-actions');
+
+  if (gameMode === 'level') {
+    saveLevelResult(activeLevelNum, totalScore);
+    const s     = getLevelSave()[String(activeLevelNum)];
+    const stars = scoreToStars(totalScore);
+    titleEl.textContent = `Level ${activeLevelNum} Complete`;
+    pbLineEl.innerHTML  = `Best: <b>${s.best.toLocaleString()}</b> · ${'★'.repeat(stars)}${'☆'.repeat(3-stars)}`;
+    actionsEl.innerHTML = `
+      <button class="btn ghost" id="sum-home">← Home</button>
+      <button class="btn" id="sum-replay">Play Again</button>`;
+    document.getElementById('sum-home').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      showHome();
+    });
+    document.getElementById('sum-replay').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      startLevel(activeLevelNum);
+    });
+  } else if (gameMode === 'daily') {
+    saveDailyResult(totalScore);
+    const data = getDailySave();
+    titleEl.textContent = 'Daily Challenge Complete';
+    pbLineEl.innerHTML  = `Score: <b>${totalScore.toLocaleString()}</b>${data.streak > 1 ? ` · 🔥 ${data.streak}-day streak` : ''}`;
+    actionsEl.innerHTML = `<button class="btn" id="sum-home">← Home</button>`;
+    document.getElementById('sum-home').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      showHome();
+    });
   } else {
-    pbLine.innerHTML = `Personal best: <b>${pb.toLocaleString()}</b>`;
+    // Random / practice mode
+    titleEl.textContent = 'Round Complete';
+    let pb = parseInt(localStorage.getItem(PB_KEY) || '0', 10);
+    if (totalScore > pb) {
+      localStorage.setItem(PB_KEY, totalScore);
+      pbLineEl.innerHTML = `Personal best: <b>${totalScore.toLocaleString()}</b> <span class="new-pb">New!</span>`;
+    } else {
+      pbLineEl.innerHTML = `Personal best: <b>${pb.toLocaleString()}</b>`;
+    }
+    actionsEl.innerHTML = `
+      <button class="btn ghost" id="sum-share">Copy Result</button>
+      <button class="btn" id="sum-replay">Play Again</button>`;
+    document.getElementById('sum-replay').addEventListener('click', startRound);
+    document.getElementById('sum-share').addEventListener('click', async function () {
+      const lines = results.map((r, i) => {
+        const buckets = ['🔴','🟠','🟡','🟢','💚'];
+        const pct = r.max > 0 ? r.points / r.max : 0;
+        const idx = Math.min(buckets.length - 1, Math.floor(pct * buckets.length));
+        return `${buckets[idx]} ${r.points}/${r.max}  ${r.loc.name}`;
+      });
+      const text = `Closest to the Pin · ${totalScore}/${MAX_TOTAL}\n` + lines.join('\n') + `\n\nPlay: `;
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = this.textContent;
+        this.textContent = 'Copied!';
+        setTimeout(() => this.textContent = orig, 1600);
+      } catch {
+        this.textContent = 'Copy failed';
+        setTimeout(() => this.textContent = 'Copy Result', 1600);
+      }
+    });
   }
 
-  // Reveal all pins on the globe
   redrawMarkers();
   hideRevealCard();
   document.getElementById('summary').classList.add('show');
@@ -1541,18 +2048,7 @@ function escapeHtml(s) {
 // BOOT
 // =============================================================
 window.addEventListener('DOMContentLoaded', () => {
-  initGlobe();
-
-  // Show personal best on splash
-  const pb = parseInt(localStorage.getItem(PB_KEY) || '0', 10);
-  if (pb > 0) {
-    document.getElementById('splash-pb').innerHTML = `Personal best: <b>${pb.toLocaleString()}</b>`;
-  }
-
-  document.getElementById('splash-start').addEventListener('click', () => {
-    document.getElementById('splash').classList.add('hide');
-    startRound();
-  });
+  showHome();
 
   document.getElementById('reveal-next').addEventListener('click', () => {
     hideRevealCard();
@@ -1560,28 +2056,16 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(nextPrompt, 250);
   });
 
-  document.getElementById('summary-replay').addEventListener('click', () => {
-    startRound();
-  });
+  document.getElementById('btn-practice').addEventListener('click', startRound);
 
-  document.getElementById('summary-share').addEventListener('click', async () => {
-    const lines = results.map((r, i) => {
-      const buckets = ['🔴','🟠','🟡','🟢','💚'];
-      const pct = r.max > 0 ? r.points / r.max : 0;
-      const idx = Math.min(buckets.length-1, Math.floor(pct * buckets.length));
-      return `${buckets[idx]} ${r.points}/${r.max}  ${r.loc.name}`;
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(p => p.classList.add('hidden'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+      if (btn.dataset.tab === 'stats') renderStats();
     });
-    const text = `Closest to the Pin · ${totalScore}/${MAX_TOTAL}\n` + lines.join('\n') + `\n\nPlay: `;
-    const btn = document.getElementById('summary-share');
-    try {
-      await navigator.clipboard.writeText(text);
-      const orig = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(() => btn.textContent = orig, 1600);
-    } catch (e) {
-      btn.textContent = 'Copy failed';
-      setTimeout(() => btn.textContent = 'Copy Result', 1600);
-    }
   });
 });
 </script>
