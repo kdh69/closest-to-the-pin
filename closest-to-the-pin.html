@@ -835,7 +835,7 @@ const WORLD_TOPO ={"type":"Topology","objects":{"countries":{"type":"GeometryCol
 ;
 
 // =============================================================
-// LOCATIONS — 67 entries bundled inline, fully self-contained
+// LOCATIONS — 119 entries bundled inline, fully self-contained
 // =============================================================
 const LOCATIONS = [
   // --- FAMOUS COURSES ---
@@ -893,7 +893,7 @@ const LOCATIONS = [
     trivia: "The course is often played at night because daytime temperatures regularly hit 45°C. Players use glow-in-the-dark balls. The club keeps a supply in a bucket by the first hole." },
   { name: "Merion Golf Club (East)", category: "course", country: "USA · Pennsylvania", lat: 40.019, lon: -75.298,
     trivia: "The wicker basket flagsticks were adopted in 1896 because the course bordered open farmland and cattle kept eating the flags. The cows are long gone, but the baskets stayed." },
-  { name: "Seminole Golf Club", category: "course", country: "USA · Florida", lat: 26.818, lon: -80.060,
+  { name: "Seminole Golf Club", category: "course", country: "USA · Florida", lat: 26.8783, lon: -80.0578,
     trivia: "Almost no photographs of this course exist. For decades the only way most golfers knew what it looked like was through written descriptions. The club has never allowed a professional event or a documentary crew." },
   { name: "Royal St George's", category: "course", country: "England · Kent", lat: 51.280, lon: 1.375,
     trivia: "The 4th hole has a hidden hollow called 'the Maiden' — a well-struck drive funnels into a perfect lie, but you can't see where it's going from the tee. Tom Watson said it was one of the most disorienting holes he'd ever played." },
@@ -903,11 +903,45 @@ const LOCATIONS = [
     trivia: "The European PGA Championship has been held here since 1984. The 18th is one of the most photographed finishing holes in European golf — a long par-5 with a green guarded on three sides by water." },
   { name: "Kapalua (Plantation Course)", category: "course", country: "USA · Hawaii", lat: 20.985, lon: -156.687,
     trivia: "Ernie Els shot 31-under here at the 2003 season-opener — a tournament record that stood for over a decade. The Plantation Course's dramatic downhill fairways and trade winds mean players routinely hit the ball 20–30 yards farther than the yardage book shows." },
+  { name: "Bay Hill Club", category: "course", country: "Orlando, Florida, USA", lat: 28.4583, lon: -81.5078,
+    trivia: "Arnold Palmer bought this course in 1976 and lived on the property until he died in 2016. The Arnold Palmer Invitational still plays here every March. His golf cart is parked permanently outside the clubhouse." },
+  { name: "Doral (Blue Monster)", category: "course", country: "Miami, Florida, USA", lat: 25.8126, lon: -80.3463,
+    trivia: "Donald Trump bought Doral in 2012 and overhauled the Blue Monster. The 18th tee shot now requires a 250-yard carry over water with a frequent headwind. Trevor Immelman called it the hardest tee shot in golf." },
+  { name: "Hilton Head Plantation", category: "course", country: "Hilton Head, South Carolina, USA", lat: 32.2163, lon: -80.7526,
+    trivia: "The RBC Heritage tournament has played here since 1969. The lighthouse-framed 18th is one of the most televised holes in golf. Local rule: alligators in hazards play as immovable obstructions. The course has six." },
+  { name: "Streamsong (Black)", category: "course", country: "Polk County, Florida, USA", lat: 27.6595, lon: -81.7956,
+    trivia: "The course is built on reclaimed phosphate mining land — a 7,000-acre site strip-mined for 50 years. The mining created the dunes and lakes that now define the layout. The mineral company kept ownership and built the resort." },
+  { name: "Sun City (Gary Player)", category: "course", country: "North West Province, South Africa", lat: -25.3439, lon: 27.0951,
+    trivia: "The Million Dollar Challenge here was the first golf event with a $1M first-place prize, launched in 1981 when most tournaments paid $100K. South African TV broadcast it during apartheid as proof of international engagement." },
+  { name: "Royal Adelaide", category: "course", country: "Adelaide, South Australia", lat: -34.9067, lon: 138.5841,
+    trivia: "The course is built on sand dunes 4km inland from the sea. The original 1892 routing has barely changed in 130 years. The greens are some of the firmest in world golf — a well-struck wedge can bounce 30 yards past the pin." },
+  { name: "Royal Hong Kong (Fanling)", category: "course", country: "Sheung Shui, Hong Kong", lat: 22.5036, lon: 114.1369,
+    trivia: "The course has hosted the Hong Kong Open since 1959 and sits 200 meters from the mainland China border. After Hong Kong's 1997 handover, the British government renegotiated the course's land lease for HK$1,000 a year." },
+  { name: "St Enodoc", category: "course", country: "Cornwall, England", lat: 50.5500, lon: -4.9000,
+    trivia: "A 14th-century church sits in the middle of the course — the architect's brother insisted it stay when the course was built around it in 1907. Players have to wait if a service is in progress." },
+  { name: "Lofoten Links", category: "course", country: "Lofoten Islands, Norway", lat: 68.3000, lon: 13.7500,
+    trivia: "Played inside the Arctic Circle. During summer, golfers tee off at midnight in 24-hour daylight. The course is closed for half the year due to snow." },
+  { name: "Cabot Cliffs", category: "course", country: "Cape Breton Island, Nova Scotia, Canada", lat: 46.0500, lon: -61.4500,
+    trivia: "Designed by Coore and Crenshaw, opened 2015. Within two years it was ranked top-20 in the world. The 16th tee shot plays directly off a 100-foot cliff into the Atlantic." },
+  { name: "Diamante (El Cardonal)", category: "course", country: "Cabo San Lucas, Mexico", lat: 22.9333, lon: -109.9667,
+    trivia: "Tiger Woods' first design completed in 2014. Located on a Mexican peninsula where most holes face the Pacific. The 18th green sits 40 feet below the tee with the ocean as backdrop." },
+  { name: "Augusta Municipal (The Patch)", category: "course", country: "Augusta, Georgia, USA", lat: 33.4565, lon: -82.1004,
+    trivia: "The public course Augusta National members don't play. Greens fee was $7 in the 1990s and remains under $30 today. Every famous golfer who has played Augusta National has, at some point, also played here." },
+  { name: "Tobacco Road", category: "course", country: "Sanford, North Carolina, USA", lat: 35.5167, lon: -79.0500,
+    trivia: "Built on a former tobacco farm in the North Carolina sandhills. Architect Mike Strantz designed it before dying of cancer at 50. Six of his eight completed courses are now ranked top-100 in America." },
+  { name: "Cabot Saint Lucia", category: "course", country: "Cap Estate, Saint Lucia", lat: 14.0833, lon: -60.9333,
+    trivia: "An ultra-luxury links course in the Caribbean. The 16th hole plays across a sea cliff. Greens fees exceed $750. The course opened in 2024 with seven holes touching the ocean." },
+  { name: "CuisinArt Anguilla", category: "course", country: "Anguilla, British West Indies", lat: 18.2206, lon: -63.0686,
+    trivia: "Designed by Greg Norman, this was the first championship golf course on the British Overseas Territory of Anguilla. Trade winds blow consistently at 15-25 mph. The greens are saltwater-tolerant paspalum." },
+  { name: "Casa de Campo (Teeth of the Dog)", category: "course", country: "La Romana, Dominican Republic", lat: 18.4252, lon: -68.9120,
+    trivia: "Designed by Pete Dye, seven holes play along the Caribbean coast. Dye routed them so close to the ocean that storm-driven spray can reach the fairways. The name comes from the jagged rocks lining the shore." },
+  { name: "Iberostar Praia do Forte", category: "course", country: "Bahia, Brazil", lat: -12.5667, lon: -38.0000,
+    trivia: "One of Brazil's only championship-standard courses. Designed by Dan Blankenship. Capybaras regularly graze on the fairways and don't move when players approach." },
 
   // --- MAJOR / RYDER CUP VENUES ---
   { name: "Pinehurst No. 2", category: "major", country: "USA · North Carolina", lat: 35.193, lon: -79.473,
     trivia: "The greens here have no flat spots — they crown away from the centre in every direction. During the 2014 US Open, all the collar rough was removed and replaced with native sandy waste. Phil Mickelson's chip that rolled off the 18th green handed the title to Martin Kaymer." },
-  { name: "Quail Hollow", category: "major", country: "USA · North Carolina", lat: 35.157, lon: -80.788,
+  { name: "Quail Hollow", category: "major", country: "USA · North Carolina", lat: 35.1497, lon: -80.8472,
     trivia: "The closing stretch (16, 17, 18) is nicknamed 'The Green Mile' — three brutal holes that have decided every Wells Fargo Championship and the 2017 PGA. Justin Thomas won that PGA at age 24, becoming the youngest PGA champion since Tiger in 2007." },
   { name: "Bethpage Black", category: "major", country: "USA · New York", lat: 40.745, lon: -73.456,
     trivia: "Bethpage Black is a state park. Anyone can pay a public green fee and play the same turf that's hosting the 2025 Ryder Cup. Players routinely sleep in their cars overnight to snag a morning tee time." },
@@ -915,11 +949,11 @@ const LOCATIONS = [
     trivia: "The Postage Stamp 8th plays just 123 yards — the shortest hole in Open Championship rotation. In 1973, 71-year-old Gene Sarazen made a hole-in-one there on Wednesday. He came back Thursday and holed out from a bunker for a 2." },
   { name: "The Olympic Club (Lake)", category: "major", country: "USA · California", lat: 37.736, lon: -122.493,
     trivia: "Arnold Palmer held a 7-shot lead here with 9 holes to play at the 1966 US Open and lost to Billy Casper. He gave all 7 shots back on the back nine. Sports Illustrated called it the greatest collapse in American golf history." },
-  { name: "Erin Hills", category: "major", country: "USA · Wisconsin", lat: 43.107, lon: -88.339,
+  { name: "Erin Hills", category: "major", country: "USA · Wisconsin", lat: 43.2342, lon: -88.3742,
     trivia: "The 2017 US Open here was played at over 7,800 yards — the longest in the event's history. Brooks Koepka shot 16-under to win, a US Open record. The course was specifically lengthened after Tiger Woods announced he was entering." },
   { name: "The Country Club (Brookline)", category: "major", country: "USA · Massachusetts", lat: 42.328, lon: -71.157,
     trivia: "Francis Ouimet was 20 years old, an amateur, and lived directly across the street from this course. His caddie Eddie Lowery was 10 years old. Together they beat the two best professionals in the world in an 18-hole playoff for the 1913 US Open." },
-  { name: "Hazeltine National", category: "major", country: "USA · Minnesota", lat: 44.866, lon: -93.514,
+  { name: "Hazeltine National", category: "major", country: "USA · Minnesota", lat: 44.8431, lon: -93.5947,
     trivia: "Patrick Reed and Rory McIlroy's 2016 Ryder Cup singles match here became a direct duel — trash talk, fist pumps, a roaring crowd. Reed won 1-up in what commentators called the defining match of a generation. The US ended a 25-year Ryder Cup drought." },
   { name: "Medinah (No. 3)", category: "major", country: "USA · Illinois", lat: 41.974, lon: -88.039,
     trivia: "Ian Poulter birdied the last 5 holes of Saturday afternoon at the 2012 Ryder Cup here, single-handedly reversing a match Europe appeared to be losing. Europe trailed 10-6 going into Sunday and won 14½–13½ — the greatest Ryder Cup comeback ever." },
@@ -937,9 +971,9 @@ const LOCATIONS = [
     trivia: "The club fell into serious disrepair through the 70s and 80s and became a municipal facility. It was revived in 1994 through a PGA Tour partnership, and the surrounding neighbourhood was rebuilt around it." },
   { name: "Muirfield Village", category: "major", country: "USA · Ohio", lat: 40.128, lon: -83.149,
     trivia: "Nicklaus personally designed this course and continues to redesign it. He's made major changes to individual holes at least seven times since opening in 1974. Visiting players say no two trips feel like quite the same course." },
-  { name: "Valhalla Golf Club", category: "major", country: "USA · Kentucky", lat: 38.225, lon: -85.540,
+  { name: "Valhalla Golf Club", category: "major", country: "USA · Kentucky", lat: 38.2845, lon: -85.4953,
     trivia: "Xander Schauffele won the 2024 PGA Championship here by holing a bunker shot on the 72nd hole for birdie. It was his first major after 26 consecutive starts without a win — the longest such streak in the modern era." },
-  { name: "The Belfry (Brabazon)", category: "major", country: "England · Warwickshire", lat: 52.510, lon: -1.634,
+  { name: "The Belfry (Brabazon)", category: "major", country: "England · Warwickshire", lat: 52.5567, lon: -1.7253,
     trivia: "Sam Torrance holed the winning putt on the 18th in 1985 and burst into tears. It was Europe's first Ryder Cup win in 28 years. The moment became the most-watched minute in golf television history up to that point." },
   { name: "Celtic Manor (Twenty Ten)", category: "major", country: "Wales", lat: 51.591, lon: -2.959,
     trivia: "The 2010 Ryder Cup here finished on a Monday — the only time in history it's gone beyond Sunday. A full day's play was lost to rain. Graeme McDowell holed the winning putt on the final hole. The 18th green is now named after him." },
@@ -985,7 +1019,7 @@ const LOCATIONS = [
     trivia: "Lydia Ko became world #1 at age 17 — the youngest #1 in golf history for either gender. She then went eight years without a major win. She came back to win the 2023 Chevron Championship and 2024 Olympic gold." },
   { name: "Vijay Singh", category: "player", country: "Lautoka, Fiji", lat: -17.617, lon: 177.467,
     trivia: "Vijay Singh was disqualified from a Tour event in the 1980s for submitting a false scorecard, and was banned from several circuits. He rebuilt his career tournament by tournament and became world #1 at age 41 — the oldest player ever to reach that ranking." },
-  { name: "Sam Snead", category: "player", country: "Ashwood, Virginia, USA", lat: 37.991, lon: -79.834,
+  { name: "Sam Snead", category: "player", country: "Ashwood, Virginia, USA", lat: 37.7935, lon: -79.8867,
     trivia: "Sam Snead won 82 PGA Tour events — more than anyone in history — but never won the US Open. His most painful near-miss: he led by one on the 72nd hole in 1939 and made an 8. He said it never left him." },
   { name: "Viktor Hovland", category: "player", country: "Oslo, Norway", lat: 59.913, lon: 10.741,
     trivia: "Hovland's chipping and pitching were so poor in his first professional season that multiple coaches declined to work with him, calling it unfixable. He hired a new short game coach, rebuilt from scratch, and finished 2023 as FedEx Cup champion." },
@@ -997,7 +1031,7 @@ const LOCATIONS = [
     trivia: "Harrington led the 2007 Open by one shot standing on the 72nd tee, then hit his second shot into the Barry Burn water hazard. He made double-bogey 6, finished tied with Sergio Garcia, and won the playoff the next morning." },
   { name: "Colin Montgomerie", category: "player", country: "Glasgow, Scotland", lat: 55.864, lon: -4.252,
     trivia: "Montgomerie won eight European Tour Order of Merit titles and went unbeaten in Ryder Cup singles — but never won a major. He finished runner-up in a US Open playoff three times. Statistically, he may be the best player of his era never to have won one." },
-  { name: "Lee Trevino", category: "player", country: "Dallas, Texas, USA", lat: 32.851, lon: -96.852,
+  { name: "Lee Trevino", category: "player", country: "Dallas, Texas, USA", lat: 32.7767, lon: -96.7970,
     trivia: "Lightning struck Trevino at the 1975 Western Open, hospitalised him, and contributed to chronic back problems. He won one more major after — the 1984 PGA Championship at age 44. When asked how he survived the strike, he said he'd held up a 1-iron: 'because even God can't hit a 1-iron.'" },
   { name: "Lorena Ochoa", category: "player", country: "Guadalajara, Mexico", lat: 20.659, lon: -103.350,
     trivia: "Lorena Ochoa retired in 2010 at age 29, ranked #1 in the world and coming off two dominant seasons. She said she wanted to start a family. She has never returned to competitive play." },
@@ -1005,6 +1039,16 @@ const LOCATIONS = [
     trivia: "Nelly Korda won 6 LPGA events in a 16-week stretch in 2024 — the most dominant run in women's golf since Annika Sörenstam. Her father won the 1998 Australian Open in tennis; her brother is a top-30 ATP professional." },
   { name: "Justin Thomas", category: "player", country: "Louisville, Kentucky, USA", lat: 38.252, lon: -85.759,
     trivia: "Justin Thomas shot a 59 at the 2017 Sony Open, joining a handful of players in Tour history to break 60. He was 23 years old. He followed it with a 63 the very next day." },
+  { name: "Bobby Jones", category: "player", country: "Atlanta, Georgia, USA", lat: 33.7490, lon: -84.3880,
+    trivia: "Bobby Jones won 13 majors as an amateur — refusing to ever turn professional. He retired from competitive golf at 28, the year he won the Grand Slam in 1930. He then designed Augusta National." },
+  { name: "Dustin Johnson", category: "player", country: "Columbia, South Carolina, USA", lat: 34.0007, lon: -81.0348,
+    trivia: "DJ was suspended from the PGA Tour for six months in 2014 — officially called personal leave, but the suspension was the worst-kept secret in golf. He came back, won the 2016 US Open, and reached world number one." },
+  { name: "Sergio Garcia", category: "player", country: "Castellón, Spain", lat: 39.9864, lon: -0.0513,
+    trivia: "Sergio finished 2nd in 4 majors before winning his first at the 2017 Masters in a playoff. He celebrated by climbing a tree. He was 37, married three days later, and named his daughter Azalea after Augusta." },
+  { name: "Old Tom Morris", category: "player", country: "St Andrews, Scotland", lat: 56.3398, lon: -2.7967,
+    trivia: "Old Tom was greenkeeper at St Andrews, won 4 Opens, and outlived all four of his children. His son Young Tom died at 24 on Christmas Day, four months after his wife. Old Tom buried himself in work and lived to 86." },
+  { name: "Y.E. Yang", category: "player", country: "Jeju Island, South Korea", lat: 33.4996, lon: 126.5312,
+    trivia: "Yang beat Tiger Woods head-to-head at the 2009 PGA Championship — the only time Tiger lost a major when leading after 54 holes. Yang didn't start golf until age 19 and worked as a bodybuilder before turning pro." },
 
   // --- GOLF LANDMARKS ---
   { name: "TPC Scottsdale (Stadium 16th)", category: "landmark", country: "USA · Arizona", lat: 33.643, lon: -111.913,
@@ -1015,11 +1059,11 @@ const LOCATIONS = [
     trivia: "The USGA's equipment lab tests clubs and balls using a robot swing nicknamed 'Iron Byron' — named after Byron Nelson's legendary consistency. They've tested over 1,700 ball models. Any ball that travels too far is rejected." },
   { name: "Royal Calcutta Golf Club", category: "landmark", country: "Kolkata, India", lat: 22.524, lon: 88.328,
     trivia: "Founded in 1829, it's the oldest golf club in the world outside Britain. The original committee minutes are preserved — and the very first recorded complaint was about slow play." },
-  { name: "St Andrews Golf Club of Yonkers", category: "landmark", country: "Hastings-on-Hudson, New York, USA", lat: 41.011, lon: -73.802,
+  { name: "St Andrews Golf Club of Yonkers", category: "landmark", country: "Hastings-on-Hudson, New York, USA", lat: 40.9882, lon: -73.8773,
     trivia: "The founding members hung their jackets on an apple tree by the 1st hole because there was no clubhouse. The club still marks the site of that original tree as a historic landmark." },
   { name: "Prestwick Golf Club", category: "landmark", country: "Ayrshire, Scotland", lat: 55.498, lon: -4.609,
     trivia: "Young Tom Morris won three Opens in a row from 1868 to 1870. The rules said three straight wins meant you kept the Championship Belt for good — he did, and the 1871 Open was cancelled while organisers figured out a replacement. The new trophy was the Claret Jug." },
-  { name: "World Golf Hall of Fame", category: "landmark", country: "St Augustine, Florida, USA", lat: 30.227, lon: -81.395,
+  { name: "World Golf Hall of Fame", category: "landmark", country: "St Augustine, Florida, USA", lat: 29.9842, lon: -81.4736,
     trivia: "Every inductee must make a hole-in-one on a short par-3 before the ceremony is complete. Some inductees have taken dozens of attempts. Jack Nicklaus reportedly made it in three." },
   { name: "R&A Headquarters", category: "landmark", country: "St Andrews, Scotland", lat: 56.341, lon: -2.804,
     trivia: "The R&A building sits so close to the Old Course that a pulled tee shot on the 1st can reach the doorstep. No fence separates them. You can watch members having breakfast through the window while competitors play the most famous first hole in golf." },
@@ -1074,42 +1118,39 @@ const diffFor  = (i) => DIFFICULTY_ORDER[i] || 'easy';
 
 // Locations not listed here default to 'easy'. Hard = obscure, remote, or trick.
 const HARD_NAMES = new Set([
-  // Courses
-  "Hirono", "Cape Kidnappers", "Old Head of Kinsale", "Tara Iti",
-  "Coober Pedy Opal Fields", "Mission Hills (Shenzhen)", "Lahinch Golf Club",
-  // Majors (map-obscure venues)
-  "Wentworth Club (West)", "Marco Simone", "Hazeltine National",
-  "Medinah (No. 3)", "Celtic Manor (Twenty Ten)",
-  // Landmarks
-  "Royal Calcutta Golf Club", "St Andrews Golf Club of Yonkers", "Prestwick Golf Club",
-  // Players
-  "Vijay Singh", "Lorena Ochoa",
-  // Equipment
-  "Srixon / Sumitomo Rubber", "PXG HQ", "Wilson Sporting Goods", "Bushnell HQ"
+  // Courses (23)
+  "Hirono", "Cape Kidnappers", "Mission Hills (Shenzhen)", "Old Head of Kinsale",
+  "Tara Iti", "Coober Pedy Opal Fields", "Lahinch Golf Club", "Wentworth Club (West)",
+  "Royal Dornoch", "Kapalua (Plantation Course)",
+  "Sun City (Gary Player)", "Royal Adelaide", "Royal Hong Kong (Fanling)",
+  "St Enodoc", "Lofoten Links", "Cabot Cliffs", "Diamante (El Cardonal)",
+  "Augusta Municipal (The Patch)", "Tobacco Road", "Cabot Saint Lucia",
+  "CuisinArt Anguilla", "Casa de Campo (Teeth of the Dog)", "Iberostar Praia do Forte",
+  // Championship Venues (4)
+  "Hazeltine National", "Medinah (No. 3)", "Marco Simone", "Celtic Manor (Twenty Ten)",
+  // Players (7)
+  "Vijay Singh", "Lorena Ochoa", "Hideki Matsuyama", "Padráig Harrington",
+  "Lydia Ko", "Viktor Hovland", "Y.E. Yang",
+  // Landmarks (4)
+  "Royal Calcutta Golf Club", "St Andrews Golf Club of Yonkers",
+  "Prestwick Golf Club", "R&A Headquarters",
+  // Equipment (8)
+  "Srixon / Sumitomo Rubber", "PXG HQ", "Wilson Sporting Goods", "Bushnell HQ",
+  "Carlsbad, CA (Golf's Silicon Valley)", "Titleist / Acushnet HQ", "Ping HQ", "Mizuno Golf"
 ]);
 const MEDIUM_NAMES = new Set([
-  // Courses
-  "Royal County Down", "Royal Melbourne (Composite)", "Cypress Point",
-  "Royal Portrush (Dunluce Links)", "Oakmont", "Shinnecock Hills",
-  "Whistling Straits (Straits)", "Royal Birkdale", "Valderrama",
-  "Le Golf National (Albatros)", "Royal Dornoch", "Banff Springs", "Pine Valley",
-  "Merion Golf Club (East)", "Seminole Golf Club", "Royal St George's",
-  "Kapalua (Plantation Course)",
-  // Majors
-  "The Olympic Club (Lake)", "Erin Hills", "The Country Club (Brookline)",
-  "Kiawah Island (Ocean)", "Winged Foot (West)", "East Lake", "Royal Troon",
-  "Muirfield Village", "Valhalla Golf Club", "The Belfry (Brabazon)",
-  // Players
-  "Seve Ballesteros", "Gary Player", "Greg Norman", "Nick Faldo",
-  "Scottie Scheffler", "Jon Rahm", "Adam Scott", "Ben Hogan", "Lydia Ko",
-  "Viktor Hovland", "Tommy Fleetwood", "Ernie Els", "Padráig Harrington",
-  "Colin Montgomerie", "Nelly Korda", "Justin Thomas", "Bryson DeChambeau", "Brooks Koepka",
-  "Sam Snead", "Lee Trevino", "Annika Sörenstam", "Hideki Matsuyama",
-  // Landmarks
-  "USGA Headquarters", "Harbour Town Lighthouse", "World Golf Hall of Fame",
-  "R&A Headquarters",
-  // Equipment
-  "Carlsbad, CA (Golf's Silicon Valley)", "Titleist / Acushnet HQ", "Ping HQ", "Mizuno Golf"
+  // Courses (7)
+  "Royal Melbourne (Composite)", "Banff Springs", "Merion Golf Club (East)",
+  "Seminole Golf Club", "Valderrama", "Le Golf National (Albatros)",
+  "The Belfry (Brabazon)",
+  // Championship Venues (7)
+  "Royal Troon", "The Olympic Club (Lake)", "The Country Club (Brookline)",
+  "Erin Hills", "East Lake", "Muirfield Village", "Valhalla Golf Club",
+  // Players (6)
+  "Gary Player", "Nick Faldo", "Adam Scott", "Brooks Koepka",
+  "Ernie Els", "Colin Montgomerie",
+  // Landmarks (3)
+  "Harbour Town Lighthouse", "USGA Headquarters", "World Golf Hall of Fame"
 ]);
 function locDifficulty(loc) {
   if (HARD_NAMES.has(loc.name)) return 'hard';
@@ -1999,8 +2040,13 @@ function showSummary() {
       pbLineEl.innerHTML = `Personal best: <b>${pb.toLocaleString()}</b>`;
     }
     actionsEl.innerHTML = `
+      <button class="btn ghost" id="sum-home">← Home</button>
       <button class="btn ghost" id="sum-share">Copy Result</button>
       <button class="btn" id="sum-replay">Play Again</button>`;
+    document.getElementById('sum-home').addEventListener('click', () => {
+      document.getElementById('summary').classList.remove('show');
+      showHome();
+    });
     document.getElementById('sum-replay').addEventListener('click', startRound);
     document.getElementById('sum-share').addEventListener('click', async function () {
       const lines = results.map((r, i) => {
