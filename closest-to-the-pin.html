@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Closest to the Pin — Spin the Globe, Tap the Course</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -773,7 +774,7 @@
     <div class="tab-content hidden" id="tab-stats"></div>
   </div>
 
-  <div class="globe-wrap hidden-view" id="globe-wrap">
+  <div class="globe-wrap hidden-view" id="globe-wrap" style="display:none">
     <svg id="globe"></svg>
 
     <div class="legend" id="legend">Drag to spin · scroll to zoom · tap to guess</div>
@@ -1606,8 +1607,11 @@ function getDailyLocations() {
 // HOME SCREEN — UI
 // =============================================================
 function showHome() {
+  document.getElementById('home-screen').style.display = 'flex';
   document.getElementById('home-screen').classList.remove('hidden-view');
-  document.getElementById('globe-wrap').classList.add('hidden-view');
+  const gw = document.getElementById('globe-wrap');
+  gw.style.display = 'none';
+  gw.classList.add('hidden-view');
   document.getElementById('dots-wrap').style.display   = 'none';
   document.getElementById('score-block').style.display = 'none';
   document.getElementById('home-nav').style.display    = 'flex';
@@ -1616,8 +1620,11 @@ function showHome() {
   renderStats();
 }
 function showGame() {
+  document.getElementById('home-screen').style.display = 'none';
   document.getElementById('home-screen').classList.add('hidden-view');
-  document.getElementById('globe-wrap').classList.remove('hidden-view');
+  const gw = document.getElementById('globe-wrap');
+  gw.style.display = '';
+  gw.classList.remove('hidden-view');
   document.getElementById('dots-wrap').style.display   = '';
   document.getElementById('score-block').style.display = '';
   document.getElementById('home-nav').style.display    = 'none';
