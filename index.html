@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Closest to the Pin — Spin the Globe, Tap the Course</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -117,7 +117,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    touch-action: pinch-zoom;
+    touch-action: none;
   }
   #globe {
     width: 100%;
@@ -473,6 +473,12 @@
     fill: none;
     stroke: rgba(255,255,255,0.05);
     stroke-width: 0.4;
+    pointer-events: none;
+  }
+  .state-border {
+    fill: none;
+    stroke: rgba(255,255,255,0.18);
+    stroke-width: 0.5;
     pointer-events: none;
   }
   .sphere {
@@ -957,7 +963,7 @@ function locDifficulty(loc) {
   return 'easy';
 }
 
-let projection, path, svg, countriesG, staticG, markersG, sphereSel;
+let projection, path, svg, countriesG, staticG, markersG, sphereSel, statesG;
 let width, height, scale0;
 let queue = [];
 let currentIdx = 0;
@@ -1076,17 +1082,47 @@ function initGlobe() {
     .attr('class', 'country-path')
     .attr('d', path);
 
+  // US state borders (drawn above countries, below markers)
+  statesG = svg.append('g').attr('class', 'states');
+  fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
+    .then(r => r.json())
+    .then(us => {
+      statesG.selectAll('path')
+        .data(topojson.feature(us, us.objects.states).features)
+        .enter().append('path')
+        .attr('class', 'state-border')
+        .attr('d', path);
+    });
+
   // Markers / arc layer (drawn on top)
   markersG = svg.append('g').attr('class', 'markers');
 
   // === Interaction ===
   let dragStart = null;
   let dragMoved = false;
+  const activePointers = new Map();
+  let pinchStartDist = null;
+  let pinchStartScale = null;
 
   svg.on('pointerdown', function (event) {
     if (event.button !== undefined && event.button !== 0) return;
+    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     event.preventDefault();
     this.setPointerCapture(event.pointerId);
+
+    if (activePointers.size >= 2) {
+      // Second finger — cancel drag and start pinch zoom
+      dragStart = null;
+      dragMoved = true; // prevent tap-guess on lift
+      svg.classed('dragging', false);
+      const pts = [...activePointers.values()];
+      pinchStartDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      pinchStartScale = projection.scale();
+      autoRotate = false;
+      lastInteract = performance.now();
+      return;
+    }
+
     const [x, y] = d3.pointer(event, this);
     const inv = projection.invert([x, y]);
     if (!inv) return;
@@ -1103,6 +1139,20 @@ function initGlobe() {
   });
 
   svg.on('pointermove', function (event) {
+    if (!activePointers.has(event.pointerId)) return;
+    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+    if (activePointers.size >= 2 && pinchStartDist !== null) {
+      const pts = [...activePointers.values()];
+      const newDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      const factor = newDist / pinchStartDist;
+      const newScale = Math.max(scale0 * 0.55, Math.min(scale0 * 3.2, pinchStartScale * factor));
+      projection.scale(newScale);
+      refresh();
+      lastInteract = performance.now();
+      return;
+    }
+
     if (!dragStart) return;
     const [x, y] = d3.pointer(event, this);
     if (!dragMoved) {
@@ -1114,7 +1164,6 @@ function initGlobe() {
     const v1 = versor.cartesian(inv);
     const q1 = versor.multiply(dragStart.q0, versor.delta(dragStart.v0, v1));
     const r  = versor.toAngles(q1);
-    // clamp roll
     r[2] = 0;
     projection.rotate(r);
     refresh();
@@ -1122,6 +1171,11 @@ function initGlobe() {
   });
 
   function endDrag(event) {
+    activePointers.delete(event.pointerId);
+    if (activePointers.size < 2) {
+      pinchStartDist = null;
+      pinchStartScale = null;
+    }
     if (!dragStart) return;
     const wasDrag = dragMoved;
     dragStart = null;
@@ -1171,6 +1225,7 @@ function refresh() {
   sphereSel.attr('d', path);
   staticG.selectAll('path').attr('d', path);
   countriesG.selectAll('path').attr('d', path);
+  if (statesG) statesG.selectAll('path').attr('d', path);
   redrawMarkers();
 }
 
@@ -1274,7 +1329,7 @@ function handleGuess(x, y) {
   spinTo(loc.lon, loc.lat, () => {
     redrawMarkers();
     showRevealCard(loc, dist, points, max);
-  });
+  }, scale0 * 1.6);
 }
 
 function greatCircleKm(a, b) {
@@ -1282,11 +1337,13 @@ function greatCircleKm(a, b) {
   return radians * EARTH_R;
 }
 
-// Animate the globe rotating to centre on a given lon/lat
-function spinTo(lon, lat, done) {
+// Animate the globe rotating to centre on a given lon/lat, optionally zooming
+function spinTo(lon, lat, done, targetScale) {
   autoRotate = false;
   const r0 = projection.rotate();
-  const r1 = [-lon, -lat * 0.6, 0]; // tilt slightly less than full to keep view balanced
+  const r1 = [-lon, -lat * 0.6, 0];
+  const s0 = projection.scale();
+  const s1 = targetScale !== undefined ? targetScale : s0;
   const interp = d3.interpolate(r0, r1);
   const t0 = performance.now();
   const dur = 800;
@@ -1294,6 +1351,22 @@ function spinTo(lon, lat, done) {
     const t = Math.min(1, (now - t0) / dur);
     const eased = d3.easeCubicInOut(t);
     projection.rotate(interp(eased));
+    projection.scale(s0 + (s1 - s0) * eased);
+    refresh();
+    if (t < 1) requestAnimationFrame(frame);
+    else if (done) done();
+  }
+  requestAnimationFrame(frame);
+}
+
+function animateScale(target, done) {
+  const s0 = projection.scale();
+  const t0 = performance.now();
+  const dur = 500;
+  function frame(now) {
+    const t = Math.min(1, (now - t0) / dur);
+    const eased = d3.easeCubicInOut(t);
+    projection.scale(s0 + (target - s0) * eased);
     refresh();
     if (t < 1) requestAnimationFrame(frame);
     else if (done) done();
@@ -1498,7 +1571,7 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('reveal-next').addEventListener('click', () => {
     hideRevealCard();
     currentIdx++;
-    setTimeout(nextPrompt, 250);
+    animateScale(scale0, () => setTimeout(nextPrompt, 50));
   });
 
   document.getElementById('summary-replay').addEventListener('click', () => {
