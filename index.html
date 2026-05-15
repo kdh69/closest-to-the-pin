@@ -642,6 +642,24 @@
   .daily-played b { color: var(--gold); font-weight: 700; }
   .daily-streak { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
 
+  /* Exit (mid-game) */
+  .exit-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    font-family: inherit;
+    transition: color 0.18s, border-color 0.18s;
+  }
+  .exit-btn:hover { color: var(--text); border-color: var(--text-dim); }
+
   /* Tab bar */
   .tab-bar {
     display: flex;
@@ -749,6 +767,7 @@
 <body>
 
   <div class="top-bar">
+    <button id="btn-exit" class="exit-btn" style="display:none" aria-label="Exit to home">✕</button>
     <div class="brand">
       <div class="brand-mark">⛳</div>
       <div class="brand-text">Closest to the Pin</div>
@@ -1626,11 +1645,12 @@ function saveLevelResult(n, score) {
   const all  = getLevelSave();
   const key  = String(n);
   const prev = all[key] || { best: 0, played: 0, stars: 0 };
+  const firstCompletion = (prev.played || 0) === 0;
   all[key] = {
-    best:     Math.max(prev.best, score),
+    best:     firstCompletion ? score : prev.best,
     played:   (prev.played || 0) + 1,
     lastDate: todayKey(),
-    stars:    Math.max(prev.stars || 0, scoreToStars(score))
+    stars:    firstCompletion ? scoreToStars(score) : prev.stars
   };
   setLevelSave(all);
 }
@@ -1687,6 +1707,7 @@ function showHome() {
   document.getElementById('dots-wrap').style.display   = 'none';
   document.getElementById('score-block').style.display = 'none';
   document.getElementById('home-nav').style.display    = 'flex';
+  document.getElementById('btn-exit').style.display    = 'none';
   renderDailyBanner();
   renderLevelGrid();
   renderStats();
@@ -1700,7 +1721,20 @@ function showGame() {
   document.getElementById('dots-wrap').style.display   = '';
   document.getElementById('score-block').style.display = '';
   document.getElementById('home-nav').style.display    = 'none';
+  document.getElementById('btn-exit').style.display    = '';
   if (!globeReady) { globeReady = true; initGlobe(); }
+}
+function exitToHome() {
+  const needsConfirm = (gameMode === 'level' || gameMode === 'daily')
+    && currentIdx < ROUND_SIZE
+    && !document.getElementById('summary').classList.contains('show');
+  if (needsConfirm && !confirm("Exit level? Progress won't be saved.")) return;
+  document.getElementById('summary').classList.remove('show');
+  hideRevealCard();
+  hidePromptCard();
+  queue = []; currentIdx = 0; totalScore = 0; results = [];
+  acceptingGuesses = false;
+  showHome();
 }
 function renderDailyBanner() {
   const banner  = document.getElementById('daily-banner');
@@ -2034,11 +2068,14 @@ function showSummary() {
   const actionsEl = document.getElementById('summary-actions');
 
   if (gameMode === 'level') {
+    const wasFirst = ((getLevelSave()[String(activeLevelNum)] || {}).played || 0) === 0;
     saveLevelResult(activeLevelNum, totalScore);
     const s     = getLevelSave()[String(activeLevelNum)];
-    const stars = scoreToStars(totalScore);
+    const starsHtml = '★'.repeat(s.stars) + '☆'.repeat(3 - s.stars);
     titleEl.textContent = `Level ${activeLevelNum} Complete`;
-    pbLineEl.innerHTML  = `Best: <b>${s.best.toLocaleString()}</b> · ${'★'.repeat(stars)}${'☆'.repeat(3-stars)}`;
+    pbLineEl.innerHTML  = wasFirst
+      ? `Best: <b>${s.best.toLocaleString()}</b> · ${starsHtml}`
+      : `This run: ${totalScore.toLocaleString()} · Best: <b>${s.best.toLocaleString()}</b> · ${starsHtml}`;
     actionsEl.innerHTML = `
       <button class="btn ghost" id="sum-home">← Home</button>
       <button class="btn" id="sum-replay">Play Again</button>`;
@@ -2141,6 +2178,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('btn-practice').addEventListener('click', startRound);
+  document.getElementById('btn-exit').addEventListener('click', exitToHome);
 
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
