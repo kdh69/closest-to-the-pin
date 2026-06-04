@@ -607,40 +607,75 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Daily banner */
-  .daily-banner {
-    margin: 14px 16px 0;
+  /* Daily hero — the primary, centered home card */
+  .daily-hero {
+    margin: clamp(24px, 6vh, 56px) 16px 0;
+    width: min(420px, calc(100% - 32px));
     background: var(--panel);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--border);
-    border-top: 2px solid var(--gold);
-    border-radius: 16px;
-    padding: 16px 18px;
+    border-top: 3px solid var(--gold);
+    border-radius: 22px;
+    padding: 34px 28px 30px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    text-align: center;
+    gap: 8px;
+    box-shadow: 0 14px 46px rgba(0,0,0,0.5);
     flex-shrink: 0;
   }
   .daily-icon {
-    width: 44px; height: 44px;
-    border-radius: 12px;
+    width: 66px; height: 66px;
+    border-radius: 18px;
     background: var(--gold-soft);
     display: grid;
     place-items: center;
-    font-size: 1.4rem;
+    font-size: 2rem;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+  .daily-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .daily-date { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; line-height: 1.15; }
+  .daily-sub { font-size: 0.9rem; color: var(--text-dim); }
+  .daily-played { font-size: 1rem; color: var(--text-dim); }
+  .daily-played b { color: var(--gold); font-weight: 800; }
+  .daily-streak { font-size: 0.85rem; color: var(--text-dim); }
+  .daily-hero #daily-play-btn {
+    margin-top: 14px;
+    font-size: 1.02rem;
+    padding: 13px 52px;
+    border-radius: 12px;
+  }
+
+  /* Levels — demoted to a low-emphasis button + secondary view */
+  .home-levels-btn {
+    margin: 18px auto 24px;
+    font-size: 0.85rem;
+    padding: 9px 22px;
     flex-shrink: 0;
   }
-  .daily-info { flex: 1; min-width: 0; }
-  .daily-date { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; line-height: 1.2; }
-  .daily-sub { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
-  .daily-played { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
-  .daily-played b { color: var(--gold); font-weight: 700; }
-  .daily-streak { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
+  .level-content { width: 100%; flex: 1; display: flex; flex-direction: column; }
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 16px 0;
+    flex-shrink: 0;
+  }
+  .level-header-title { font-weight: 700; font-size: 1rem; color: var(--text); }
 
   /* Exit (mid-game) */
   .exit-btn {
@@ -659,34 +694,6 @@
     transition: color 0.18s, border-color 0.18s;
   }
   .exit-btn:hover { color: var(--text); border-color: var(--text-dim); }
-
-  /* Tab bar */
-  .tab-bar {
-    display: flex;
-    margin: 14px 16px 0;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-  .tab-btn {
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: var(--text-dim);
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 8px 20px;
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-    margin-bottom: -1px;
-    letter-spacing: -0.01em;
-  }
-  .tab-btn:hover { color: var(--text); }
-  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-
-  /* Tab panes */
-  .tab-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .tab-content.hidden { display: none; }
 
   /* Level grid */
   .level-grid {
@@ -724,43 +731,10 @@
   .level-stars { font-size: 0.58rem; line-height: 1; }
   .level-best { font-size: 0.65rem; color: var(--text-dim); text-align: center; min-height: 1em; }
 
-  /* Stats */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 16px;
-  }
-  .stat-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px;
-    text-align: center;
-  }
-  .stat-card.wide { grid-column: 1 / -1; }
-  .stat-value {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--gold);
-    letter-spacing: -0.02em;
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-  .stat-label {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-dim);
-    margin-top: 6px;
-  }
-
   @media (max-width: 640px) {
-    .daily-banner { margin: 10px 12px 0; padding: 12px 14px; }
-    .tab-bar { margin: 10px 12px 0; }
+    .daily-hero { margin-top: 24px; padding: 28px 22px; }
     .level-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 12px 12px 20px; }
     .level-circle { width: 60px; height: 60px; }
-    .stats-grid { padding: 12px; gap: 10px; }
   }
 </style>
 </head>
@@ -785,18 +759,18 @@
   </div>
 
   <div id="home-screen" class="home-screen">
-    <div class="daily-banner" id="daily-banner">
+    <div class="daily-hero" id="daily-banner">
       <div class="daily-icon">📅</div>
-      <div class="daily-info"><div class="daily-date">Loading…</div></div>
+      <div class="daily-date">Loading…</div>
     </div>
-    <div class="tab-bar">
-      <button class="tab-btn active" data-tab="levels">Levels</button>
-      <button class="tab-btn" data-tab="stats">Stats</button>
-    </div>
-    <div class="tab-content" id="tab-levels">
+    <button class="btn ghost home-levels-btn" id="btn-levels">▦ Levels</button>
+    <div class="level-content hidden-view" id="level-content">
+      <div class="level-header">
+        <button class="btn ghost" id="btn-levels-back" style="padding:7px 14px;font-size:0.82rem">← Home</button>
+        <span class="level-header-title">Levels</span>
+      </div>
       <div class="level-grid" id="level-grid"></div>
     </div>
-    <div class="tab-content hidden" id="tab-stats"></div>
   </div>
 
   <div class="globe-wrap hidden-view" id="globe-wrap" style="display:none">
@@ -1667,6 +1641,21 @@ function saveDailyResult(score) {
     streak = diff === 1 ? streak + 1 : 1;
   } else { streak = 1; }
   setDailySave({ scores, streak, lastDate: today });
+  reportDailyToHost(score, MAX_TOTAL, streak);
+}
+
+// When embedded in the Daily Dynasty shell (inside an <iframe>), report the
+// daily-challenge result up to the host page, which knows the player's name and
+// posts it to the shared leaderboard. Harmless no-op when opened standalone.
+function reportDailyToHost(score, max, streak) {
+  try {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage(
+        { type: 'pin:dailyResult', score, max, streak, day: todayKey() },
+        '*'
+      );
+    }
+  } catch {}
 }
 
 // =============================================================
@@ -1681,11 +1670,50 @@ function xor32(seed) {
   let s = (seed ^ 0) || 1;
   return () => { s ^= s << 13; s ^= s >> 17; s ^= s << 5; return (s >>> 0) / 0x100000000; };
 }
+const DAILY_EPOCH = '2026-06-04';   // Day 1 of the league
+
 function getDailyLocations() {
-  const rng    = xor32(fnv32(todayKey()));
-  const byDiff = { easy: [], medium: [], hard: [] };
-  LOCATIONS.forEach(l => byDiff[locDifficulty(l)].push(l));
+  // 1. Bucket by difficulty, dedupe by locId (guards same-coord collisions),
+  //    then sort each tier by locId so the input order is stable.
+  const byDiff   = { easy: [], medium: [], hard: [] };
+  const seenById = { easy: new Set(), medium: new Set(), hard: new Set() };
+  LOCATIONS.forEach(l => {
+    const d = locDifficulty(l), id = locId(l);
+    if (seenById[d].has(id)) return;
+    seenById[d].add(id);
+    byDiff[d].push(l);
+  });
   for (const k of Object.keys(byDiff)) byDiff[k].sort((a, b) => locId(a) < locId(b) ? -1 : 1);
+  const { easy, medium, hard } = byDiff;
+
+  // 2. Days elapsed since the launch epoch (both parsed as UTC midnight).
+  const dayIndex = Math.max(0, Math.floor(
+    (new Date(todayKey()) - new Date(DAILY_EPOCH)) / 86400000));
+
+  // 3. How many fully-unique (no-repeat) days the live tier sizes allow.
+  const CURATED_DAYS = Math.min(
+    Math.floor(easy.length / 2), medium.length, Math.floor(hard.length / 2));
+
+  // 4. Curated no-repeat path — each location used at most once across these days.
+  if (dayIndex < CURATED_DAYS) {
+    const rng = xor32(fnv32('ctp-daily-shuffle-v1'));   // fixed master seed
+    const shuffle = (arr) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+    shuffle(easy); shuffle(medium); shuffle(hard);
+    const easyA = easy[2 * dayIndex], easyB = easy[2 * dayIndex + 1];
+    const med   = medium[dayIndex];
+    const hardA = hard[2 * dayIndex], hardB = hard[2 * dayIndex + 1];
+    // Difficulty-ramp order to match DIFFICULTY_ORDER.
+    return [easyA, easyB, med, hardA, hardB];
+  }
+
+  // 5. Pure random fallback (repeats allowed), seeded per day.
+  const rng = xor32(fnv32('ctp-daily-rand-' + dayIndex));
   const pick = [], used = new Set();
   for (const d of DIFFICULTY_ORDER) {
     const pool   = byDiff[d].filter(l => !used.has(locId(l)));
@@ -1708,9 +1736,19 @@ function showHome() {
   document.getElementById('score-block').style.display = 'none';
   document.getElementById('home-nav').style.display    = 'flex';
   document.getElementById('btn-exit').style.display    = 'none';
+  hideLevelGrid();   // always land on the daily hero
   renderDailyBanner();
+}
+function showLevelGrid() {
+  document.getElementById('daily-banner').classList.add('hidden-view');
+  document.getElementById('btn-levels').classList.add('hidden-view');
+  document.getElementById('level-content').classList.remove('hidden-view');
   renderLevelGrid();
-  renderStats();
+}
+function hideLevelGrid() {
+  document.getElementById('daily-banner').classList.remove('hidden-view');
+  document.getElementById('btn-levels').classList.remove('hidden-view');
+  document.getElementById('level-content').classList.add('hidden-view');
 }
 function showGame() {
   document.getElementById('home-screen').style.display = 'none';
@@ -1743,25 +1781,22 @@ function renderDailyBanner() {
   const scores  = data.scores || {};
   const played  = scores[today] !== undefined;
   const streak  = data.streak || 0;
-  const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
   const streakHtml = streak > 1 ? `<div class="daily-streak">🔥 ${streak}-day streak</div>` : '';
   if (played) {
     banner.innerHTML = `
       <div class="daily-icon">📅</div>
-      <div class="daily-info">
-        <div class="daily-date">${dateStr}</div>
-        <div class="daily-played">Played today · <b>${scores[today].toLocaleString()} pts</b></div>
-        ${streakHtml}
-      </div>`;
+      <div class="daily-label">Daily Challenge</div>
+      <div class="daily-date">${dateStr}</div>
+      <div class="daily-played">Played today · <b>${scores[today].toLocaleString()} pts</b></div>
+      ${streakHtml}`;
   } else {
     banner.innerHTML = `
       <div class="daily-icon">📅</div>
-      <div class="daily-info">
-        <div class="daily-date">${dateStr}</div>
-        <div class="daily-sub">Daily Challenge</div>
-        ${streakHtml}
-      </div>
-      <button class="btn" id="daily-play-btn" style="flex-shrink:0">Play</button>`;
+      <div class="daily-label">Daily Challenge</div>
+      <div class="daily-date">${dateStr}</div>
+      ${streakHtml}
+      <button class="btn" id="daily-play-btn">Play</button>`;
     document.getElementById('daily-play-btn').addEventListener('click', startDailyChallenge);
   }
 }
@@ -1787,42 +1822,6 @@ function renderLevelGrid() {
     el.addEventListener('click', () => startLevel(+el.dataset.level))
   );
 }
-function renderStats() {
-  const pane      = document.getElementById('tab-stats');
-  const save      = getLevelSave();
-  const daily     = getDailySave();
-  const completed = Object.values(save).filter(v => v.played > 0);
-  const totalBest = completed.reduce((s, v) => s + v.best, 0);
-  const avgPct    = completed.length
-    ? Math.round(completed.reduce((s, v) => s + v.best / MAX_TOTAL, 0) / completed.length * 100) : 0;
-  const stars  = completed.reduce((s, v) => s + (v.stars || 0), 0);
-  const streak = daily.streak || 0;
-  const played = completed.reduce((s, v) => s + v.played, 0);
-  pane.innerHTML = `
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-value">${played}</div>
-        <div class="stat-label">Levels Played</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">${totalBest.toLocaleString()}</div>
-        <div class="stat-label">Total Best Score</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">${avgPct}%</div>
-        <div class="stat-label">Avg Accuracy</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">${stars}<span style="font-size:.65em;color:var(--text-dim)">/60</span></div>
-        <div class="stat-label">Total Stars</div>
-      </div>
-      <div class="stat-card wide">
-        <div class="stat-value">🔥 ${streak}</div>
-        <div class="stat-label">Daily Streak</div>
-      </div>
-    </div>`;
-}
-
 // =============================================================
 // FIXED LEVEL + DAILY — game start
 // =============================================================
@@ -2180,15 +2179,8 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-practice').addEventListener('click', startRound);
   document.getElementById('btn-exit').addEventListener('click', exitToHome);
 
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(p => p.classList.add('hidden'));
-      btn.classList.add('active');
-      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
-      if (btn.dataset.tab === 'stats') renderStats();
-    });
-  });
+  document.getElementById('btn-levels').addEventListener('click', showLevelGrid);
+  document.getElementById('btn-levels-back').addEventListener('click', hideLevelGrid);
 });
 </script>
 </body>
